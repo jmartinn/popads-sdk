@@ -5,7 +5,7 @@
   "dependencies": {
     "dotenv": "^16.0.1",
     "express": "^4.17.1",
-    "popads-sdk": "file:../popads-sdk-0.0.1.tgz"
+    "popads-sdk": "1.0.0-beta",
   },
   "devDependencies": {
     "@types/express": "^4.17.11",

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
   "name": "popads-sdk",
-  "version": "0.0.1",
+  "version": "1.0.0-beta",
   "description": "A TypeScript SDK for the PopAds API",
   "keywords": [
     "typescript",
@@ -14,14 +14,19 @@
     "url": "https://github.com/jmartinn/popads-sdk/issues"
   },
   "license": "MIT",
+  "author": {
+    "url": "https://github.com/jmartinn",
+    "name": "Juan Pedro Martin",
+    "email": "juamp_m@hotmail.com"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jmartinn/popads-sdk.git"
   },
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "/build"
+    "/dist"
   ],
   "engines": {
     "node": ">=14"
@@ -38,7 +43,7 @@
     "check": "pnpm run format:check && pnpm run lint",
     "prepublishOnly": "pnpm test",
     "test": "vitest",
-    "clean": "rimraf build"
+    "clean": "rimraf dist"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
