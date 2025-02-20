@@ -15,8 +15,8 @@ importers:
         specifier: ^4.17.1
         version: 4.21.2
       popads-sdk:
-        specifier: file:../popads-sdk-0.0.1.tgz
-        version: file:../popads-sdk-0.0.1.tgz
+        specifier: 1.0.0-beta
+        version: 1.0.0-beta
     devDependencies:
       '@types/express':
         specifier: ^4.17.11
@@ -313,9 +313,8 @@ packages:
   path-to-regexp@0.1.12:
     resolution: {integrity: sha512-RA1GjUVMnvYFxuqovrEqZoxxW5NUZqbwKtYz/Tt7nXerk0LbLblQmrsgdeOxV5SFHf0UDggjS/bSeOZwt1pmEQ==}
 
-  popads-sdk@file:../popads-sdk-0.0.1.tgz:
-    resolution: {integrity: sha512-Ie5HED/kxeLvK4CZxnoNliEREuhF8zKO4gtKVdyNPyUEViMRXZZlT0GLMabTBkqZ3lonSUYUd1sk4eQoa1J7Zw==, tarball: file:../popads-sdk-0.0.1.tgz}
-    version: 0.0.1
+  popads-sdk@1.0.0-beta:
+    resolution: {integrity: sha512-gK6gbD/HCBgsQKk9Pn+L2ap5/gP8oH7SaSs2gSxb8sdY2/JOR0zb2npq+vFZ6xRADiXTFJm2DBZlw75VaBPN6Q==}
     engines: {node: '>=14'}
 
   proxy-addr@2.0.7:
@@ -706,7 +705,7 @@ snapshots:
 
   path-to-regexp@0.1.12: {}
 
-  popads-sdk@file:../popads-sdk-0.0.1.tgz: {}
+  popads-sdk@1.0.0-beta: {}
 
   proxy-addr@2.0.7:
     dependencies:
