@@ -42,7 +42,7 @@
     "format:check": "prettier --check \"src/**/*.ts\"",
     "check": "pnpm run format:check && pnpm run lint",
     "prepublishOnly": "pnpm test",
-    "test": "vitest",
+    "test": "vitest run",
     "clean": "rimraf dist"
   },
   "devDependencies": {
