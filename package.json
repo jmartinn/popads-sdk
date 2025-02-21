@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
   "name": "popads-sdk",
-  "version": "1.0.0-beta",
+  "version": "1.0.1-beta",
   "description": "A TypeScript SDK for the PopAds API",
   "keywords": [
     "typescript",
