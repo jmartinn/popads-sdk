@@ -5,7 +5,7 @@ export interface CampaignResponse extends BaseApiResponse {
   code: 200;
   records: number;
   data: {
-    campaign: Campaign;
+    campaign: Partial<Campaign>;
   };
 }
 
@@ -56,15 +56,15 @@ interface Campaign {
  */
 interface BaseCampaignRequest {
   throttling: Throttling;
-  categories: Categories;
+  categories?: Categories;
   countries: Countries;
-  society: Society;
-  environment: Environment;
+  society?: Society;
+  environment?: Environment;
   device: Device;
-  connections: Connection;
+  connections?: Connection;
   time: Time;
-  website_targeting: WebsiteTargeting;
-  adscore: AdScore;
+  website_targeting?: WebsiteTargeting;
+  adscore?: AdScore;
 }
 
 /**
@@ -94,37 +94,67 @@ interface CampaignGeneralInformation {
   urls: string[];
 
   /** Optional: Prefetch URL if different from campaign URL. */
-  prefetch_url?: string;
+  prefetch_url: string;
 
-  /** Quality level of the websites to advertise on (1-10). */
-  minimum_quality: QualityLevel;
+  /**
+   * Quality level of the websites to advertise on (1-10).
+   * @default 1
+   */
+  minimum_quality?: QualityLevel;
 
-  /** Quality mode: "minimum" or "exact". */
-  minimum_quality_mode: "minimum" | "exact";
+  /**
+   * Quality mode: "minimum" or "exact".
+   * @default "minimum"
+   */
+  minimum_quality_mode?: "minimum" | "exact";
 
-  /** Defines how often the ad is shown. */
-  frequency_cap: FrequencyCap;
+  /**
+   * Defines how often the ad is shown.
+   * @default { days: 1, hours: 0, minutes: 0 } (once per day)
+   */
+  frequency_cap?: FrequencyCap;
 
-  /** Action after approval: 1 = Start immediately, 3 = Manual start */
-  after_approval: 1 | 3;
+  /**
+   * Action after approval: 1 = Start immediately, 3 = Manual start
+   * @default 1
+   */
+  after_approval?: 1 | 3;
 
-  /** Whether the campaign is marked as adult content. */
-  adult: boolean;
+  /**
+   * Whether the campaign is marked as adult content.
+   * @default false
+   */
+  adult?: boolean;
 
-  /** Placement preference for PrimeSpot ads. */
-  primespot: "all" | "primespot" | "no_primespot";
+  /**
+   * Placement preference for PrimeSpot ads.
+   * @default "all"
+   */
+  primespot?: "all" | "primespot" | "no_primespot";
 
-  /** Referrer tracking mode. (details in API documentation) */
-  referrer: number;
+  /**
+   * Referrer tracking mode. (details in API documentation)
+   * @default 0
+   */
+  referrer?: number;
 
-  /** Whether the ad targets users with ad blockers. */
-  ad_block: "all" | "adblock" | "no_adblock";
+  /**
+   * Whether the ad targets users with ad blockers.
+   * @default "all"
+   */
+  ad_block?: "all" | "adblock" | "no_adblock";
 
-  /** Whether the ad is shown in incognito mode. */
-  incognito: "all" | "incognito" | "no_incognito";
+  /**
+   * Whether the ad is shown in incognito mode.
+   * @default "all"
+   */
+  incognito?: "all" | "incognito" | "no_incognito";
 
-  /** Type of ad being run. */
-  ad_type:
+  /**
+   * Type of ad being run.
+   * @default "popunder"
+   */
+  ad_type?:
     | "popup"
     | "popunder"
     | "tabunder"
@@ -132,8 +162,11 @@ interface CampaignGeneralInformation {
     | "bbr"
     | "floatingbanner";
 
-  /** Allow other methods when the chosen one is not available */
-  ad_type_other: boolean;
+  /**
+   * Allow other methods when the chosen one is not available
+   * @default true
+   */
+  ad_type_other?: boolean;
 }
 
 /**
@@ -158,15 +191,18 @@ interface Budget {
   mode: "smart_bid" | "legacy_bid";
 
   /** Maximum bid per popunder (decimal string) */
-  max_bid: string;
+  max_bid: number;
 
   /** Daily budget limit (0 = unlimited) */
-  max_per_day: number;
+  max_per_day?: number;
 
   /** Total campaign budget */
   budget: number;
 
-  /** Enable use of account balance instead of local budgets */
+  /**
+   * Enable use of account balance instead of local budgets
+   * @default false
+   */
   global_budget?: boolean;
 }
 
@@ -225,11 +261,15 @@ interface Categories {
    *
    * - Retrieve valid values from [GET /countries](https://www.popads.net/docs/api_v2.html#tag/options/paths/~1options~1list~1categories/get).
    * - Leave empty to retrieve all categories.
+   * @default [] (all categories)
    */
-  list: number[];
+  list?: number[];
 
-  /** Include subcategories in targeting */
-  include_subcategories: boolean;
+  /**
+   * Include subcategories in targeting
+   * @default true
+   */
+  include_subcategories?: boolean;
 }
 
 /**
@@ -251,8 +291,9 @@ interface Countries {
    * - To enable region targeting, select up to **three countries** in `codes`.
    * - If only one country has assigned regions, add the rest of the country codes as regions.
    * - Leave empty to target all regions.
+   * @default [] (all regions)
    */
-  regions: string[];
+  regions?: string[];
 }
 
 /**
@@ -267,24 +308,27 @@ interface Society {
    * - **"exact"** - Targets visitors whose *entire* language list matches your targeting.
    *
    * Retrieve valid values from [GET /language-modes](https://www.popads.net/docs/api_v2.html#tag/options/paths/~1options~1list~1language-mode/get).
+   * @default "any"
    */
-  language_mode: "any" | "first" | "exact";
+  language_mode?: "any" | "first" | "exact";
 
   /**
    * List of language codes to target.
    *
    * - Retrieve valid language IDs from [GET /languages](https://www.popads.net/docs/api_v2.html#tag/options/paths/~1options~1list~1languages/get).
    * - Leave empty to target *all available* languages.
+   * @default [] (all languages)
    */
-  languages: string[];
+  languages?: string[];
 
   /**
    * List of population segment IDs to target.
    *
    * - Retrieve valid population IDs from [GET /populations](https://www.popads.net/docs/api_v2.html#tag/options/paths/~1options~1list~1population/get).
    * - Leave empty to target *all* population groups.
+   * @default [] (all population groups)
    */
-  populations: number[];
+  populations?: number[];
 }
 
 /**
@@ -296,24 +340,27 @@ interface Environment {
    *
    * - Retrieve valid OS IDs from [GET /os](https://www.popads.net/docs/api_v2.html#tag/options/paths/~1options~1list~1os/get).
    * - Leave empty to target *all* operating systems.
+   * @default [] (all operating systems)
    */
-  os: number[];
+  os?: number[];
 
   /**
    * List of browser IDs to target.
    *
    * - Retrieve valid browser IDs from [GET /browser](https://www.popads.net/docs/api_v2.html#tag/options/paths/~1options~1list~1browser/get).
    * - Leave empty to target *all* browsers.
+   * @default [] (all browsers)
    */
-  browser: number[];
+  browser?: number[];
 
   /**
    * List of screen resolution IDs to target.
    *
    * - Retrieve valid resolution IDs from [GET /resolutions](https://www.popads.net/docs/api_v2.html#tag/options/paths/~1options~1list~1resolutions/get).
    * - Leave empty to target *all* screen resolutions.
+   * @default [] (all screen resolutions)
    */
-  resolutions: number[];
+  resolutions?: number[];
 }
 
 /**
@@ -325,8 +372,9 @@ interface Device {
    *
    * - Retrieve valid device IDs from [GET /device](https://www.popads.net/docs/api_v2.html#tag/options/paths/~1options~1list~1device/get).
    * - Leave empty to target *all* devices.
+   * @default [] (all devices)
    */
-  device: number[];
+  device?: number[];
 
   /**
    * List of form factor IDs to target (e.g., mobile, tablet, desktop).
@@ -343,6 +391,7 @@ interface Device {
    * - `1` = Enabled
    *
    * Mobile browsers can request pages in desktop mode. This setting detects those cases.
+   * @default 1 (allow desktop requests)
    */
   request_as_desktop?: 0 | 1;
 }
@@ -355,6 +404,7 @@ interface Connection {
    * Choose a predefined IP Targeting List.
    *
    * - If set, all other targeting options are ignored.
+   * @default undefined (no predefined list)
    */
   ip_targeting_id?: number;
 
@@ -363,16 +413,18 @@ interface Connection {
    *
    * - Retrieve valid connection type IDs from [GET /conntype](https://www.popads.net/docs/api_v2.html#tag/options/paths/~1options~1list~1connection-types/get).
    * - Leave empty to target *all* connection types.
+   * @default [] (all connection types)
    */
-  conntype: number[];
+  conntype?: number[];
 
   /**
    * List of connection speed IDs to target.
    *
    * - Retrieve valid connection speed IDs from [GET /connspeed](https://www.popads.net/docs/api_v2.html#tag/options/paths/~1options~1list~1connection-speed/get).
    * - Leave empty to target *all* connection speeds.
+   * @default [] (all connection speeds)
    */
-  connspeed: number[];
+  connspeed?: number[];
 
   /**
    * List of ISP (Internet Service Provider) IDs to target.
@@ -380,8 +432,9 @@ interface Connection {
    * - Retrieve valid ISP IDs from [GET /internet_service_providers](https://www.popads.net/docs/api_v2.html#tag/options/paths/~1options~1list~1internet-service-providers/get).
    * - Leave empty to target *all* ISPs.
    * - **Note:** ISP targeting requires selecting *up to three* countries in the `countries` object.
+   * @default [] (all ISPs)
    */
-  internet_service_providers: number[];
+  internet_service_providers?: number[];
 }
 
 /**
@@ -405,6 +458,7 @@ interface Time {
 
 /**
  * Website targeting configuration.
+ * @default { type: "none" } (no specific targeting)
  */
 type WebsiteTargeting =
   | {
@@ -435,22 +489,25 @@ interface AdScore {
    *
    * - `0` = Disabled
    * - `1` = Enabled
+   * @default 1 (verified traffic only)
    */
-  valid_traffic: 0 | 1;
+  valid_traffic?: 0 | 1;
 
   /**
    * Whether to allow proxy or VPN traffic.
    *
    * - `0` = Disabled
    * - `1` = Enabled
+   * @default 0 (exclude proxies)
    */
-  proxy_traffic: 0 | 1;
+  proxy_traffic?: 0 | 1;
 
   /**
    * Whether to filter based on true geographic location.
    *
    * - `0` = Disabled
    * - `1` = Enabled
+   * @default 0 (no geo-filtering)
    */
   true_location?: 0 | 1;
 
@@ -459,8 +516,9 @@ interface AdScore {
    *
    * - `0` = Disabled
    * - `1` = Enabled
+   * @default 0 (exclude junk)
    */
-  junk_traffic: 0 | 1;
+  junk_traffic?: 0 | 1;
 
   /**
    * Whether to block bot traffic.
@@ -482,12 +540,4 @@ interface AdScore {
    * - Always set to `1` (enabled).
    */
   compliance: 1;
-}
-
-/**
- * API request parameters
- */
-interface ApiRequestParams {
-  key: string;
-  campaignId: number;
 }

@@ -1,3 +1,6 @@
+import merge from "lodash.merge";
+
+import { CAMPAIGN_DEFAULTS } from "../config/defaults";
 import {
   CampaignResponse,
   CampaignCreateRequest,
@@ -67,11 +70,13 @@ export class CampaignClient {
    * ```
    */
   async createCampaign(data: CampaignCreateRequest): Promise<CampaignResponse> {
+    const requestData = merge({}, CAMPAIGN_DEFAULTS, data);
+
     return makeRequest<CampaignResponse>(
       this.apiKey,
       "/campaign/add",
       "POST",
-      data,
+      requestData,
     );
   }
 

@@ -47,7 +47,7 @@ describe("CampaignClient", () => {
           budget: {
             mode: "smart_bid",
             budget: 0,
-            max_bid: "0.008",
+            max_bid: 0.008,
             max_per_day: 0,
           },
           throttling: {
@@ -132,7 +132,7 @@ describe("CampaignClient", () => {
       budget: {
         mode: "smart_bid",
         budget: 0,
-        max_bid: "0.008",
+        max_bid: 0.008,
         max_per_day: 0,
       },
       throttling: {
@@ -223,7 +223,7 @@ describe("CampaignClient", () => {
         minimum_quality: 2,
       },
       budget: {
-        max_bid: "0.01",
+        max_bid: 0.01,
       },
     };
 
@@ -258,7 +258,7 @@ describe("CampaignClient", () => {
           budget: {
             mode: "smart_bid",
             budget: 0,
-            max_bid: "0.01",
+            max_bid: 0.01,
             max_per_day: 0,
           },
           throttling: {
