@@ -4,6 +4,10 @@ import { BaseApiResponse, ErrorResponse } from "../types/client";
 
 type HTTPMethod = "GET" | "POST" | "PUT" | "DELETE";
 
+function isErrorResponse(response: BaseApiResponse): response is ErrorResponse {
+  return response.status === "failed";
+}
+
 function makeRequest<T extends BaseApiResponse>(
   apiKey: string,
   endpoint: string,
@@ -30,8 +34,12 @@ function makeRequest<T extends BaseApiResponse>(
         try {
           const parsedData: T | ErrorResponse = JSON.parse(responseData);
 
-          if (parsedData.status === "failed") {
-            reject(new Error(`API Error: ${JSON.stringify(parsedData.code)}`));
+          if (isErrorResponse(parsedData)) {
+            reject(
+              new Error(
+                `API Error ${JSON.stringify(parsedData.code)}: ${JSON.stringify(parsedData.messages)}`,
+              ),
+            );
             return;
           }
           resolve(parsedData);
