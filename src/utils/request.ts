@@ -4,6 +4,19 @@ import { BaseApiResponse, ErrorResponse } from '../types/client';
 
 type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
+/**
+ * Custom error class for unexpected SDK errors
+ */
+class SDKError extends Error {
+  constructor(
+    public message: string,
+    public cause?: unknown,
+  ) {
+    super(message);
+    this.name = 'SDKError';
+  }
+}
+
 function isErrorResponse(response: BaseApiResponse): response is ErrorResponse {
   return response.status === 'failed';
 }
@@ -35,16 +48,12 @@ function makeRequest<T extends BaseApiResponse>(
           const parsedData: T | ErrorResponse = JSON.parse(responseData);
 
           if (isErrorResponse(parsedData)) {
-            reject(
-              new Error(
-                `API Error ${JSON.stringify(parsedData.code)}: ${JSON.stringify(parsedData.messages)}`,
-              ),
-            );
+            reject(parsedData);
             return;
           }
           resolve(parsedData);
         } catch (error) {
-          reject(new Error('Invalid JSON response'));
+          reject(new SDKError('Invalid JSON response', error));
         }
       });
     });
