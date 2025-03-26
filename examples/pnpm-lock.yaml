@@ -15,8 +15,8 @@ importers:
         specifier: ^4.17.1
         version: 4.21.2
       popads-sdk:
-        specifier: 1.1.1-beta
-        version: 1.1.1-beta
+        specifier: 1.2.1-beta
+        version: 1.2.1-beta
     devDependencies:
       '@types/express':
         specifier: ^4.17.11
@@ -316,8 +316,8 @@ packages:
   path-to-regexp@0.1.12:
     resolution: {integrity: sha512-RA1GjUVMnvYFxuqovrEqZoxxW5NUZqbwKtYz/Tt7nXerk0LbLblQmrsgdeOxV5SFHf0UDggjS/bSeOZwt1pmEQ==}
 
-  popads-sdk@1.1.1-beta:
-    resolution: {integrity: sha512-J65tC1fmOMyLmuflRalHwxJeVFcsuOFEii0Dbl7XyhyMCoq1njCte01hdJx1yliGDIK5bl3RQwtbsusVN7+XAA==}
+  popads-sdk@1.2.1-beta:
+    resolution: {integrity: sha512-T8jbCsvJGvWPWc87QNOrwaqVmoIP/NGfz6Z+obZOKae3RG1kRYIgYwZc/qrcXqILfsTJ9LzDoo1Ka7vZvyXBFQ==}
     engines: {node: '>=14'}
 
   proxy-addr@2.0.7:
@@ -710,7 +710,7 @@ snapshots:
 
   path-to-regexp@0.1.12: {}
 
-  popads-sdk@1.1.1-beta:
+  popads-sdk@1.2.1-beta:
     dependencies:
       lodash.merge: 4.6.2
 
