@@ -1,6 +1,6 @@
-import { CampaignClient } from "./campaign";
-import { FeedClient } from "./feed";
-import { OptionsClient } from "./options";
+import { CampaignClient } from './campaign';
+import { FeedClient } from './feed';
+import { OptionsClient } from './options';
 
 export class PopAdsClient {
   public campaign: CampaignClient;

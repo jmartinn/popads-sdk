@@ -1,10 +1,10 @@
 import {
-  OptionsResponse,
-  OptionList,
   Category,
+  OptionList,
+  OptionsResponse,
   Symbols,
-} from "../types/options";
-import { makeRequest } from "../utils/request";
+} from '../types/options';
+import { makeRequest } from '../utils/request';
 
 /**
  * Client for retrieving available configuration options.
@@ -43,8 +43,8 @@ export class OptionsClient {
   async getAdBlockValues(): Promise<OptionsResponse<OptionList>> {
     return makeRequest<OptionsResponse<OptionList>>(
       this.apiKey,
-      "/options/list/ad-block",
-      "GET",
+      '/options/list/ad-block',
+      'GET',
     );
   }
 
@@ -57,8 +57,8 @@ export class OptionsClient {
   async getAdvertiseType(): Promise<OptionsResponse<OptionList>> {
     return makeRequest<OptionsResponse<OptionList>>(
       this.apiKey,
-      "/options/list/adv-type",
-      "GET",
+      '/options/list/adv-type',
+      'GET',
     );
   }
 
@@ -75,8 +75,8 @@ export class OptionsClient {
   async getAfterApprove(): Promise<OptionsResponse<OptionList>> {
     return makeRequest<OptionsResponse<OptionList>>(
       this.apiKey,
-      "/options/list/after-approve",
-      "GET",
+      '/options/list/after-approve',
+      'GET',
     );
   }
 
@@ -94,8 +94,8 @@ export class OptionsClient {
   async getBrowsers(): Promise<OptionsResponse<Symbols>> {
     return makeRequest<OptionsResponse<Symbols>>(
       this.apiKey,
-      "/options/list/browser",
-      "GET",
+      '/options/list/browser',
+      'GET',
     );
   }
 
@@ -113,8 +113,8 @@ export class OptionsClient {
   async getCategories(): Promise<OptionsResponse<Category>> {
     return makeRequest<OptionsResponse<Category>>(
       this.apiKey,
-      "/options/list/categories",
-      "GET",
+      '/options/list/categories',
+      'GET',
     );
   }
 
@@ -132,8 +132,8 @@ export class OptionsClient {
   async getConnSpeed(): Promise<OptionsResponse<OptionList>> {
     return makeRequest<OptionsResponse<OptionList>>(
       this.apiKey,
-      "/options/list/connection-speeds",
-      "GET",
+      '/options/list/connection-speeds',
+      'GET',
     );
   }
 
@@ -152,8 +152,8 @@ export class OptionsClient {
   async getConnTypes(): Promise<OptionsResponse<OptionList>> {
     return makeRequest<OptionsResponse<OptionList>>(
       this.apiKey,
-      "/options/list/connection-types",
-      "GET",
+      '/options/list/connection-types',
+      'GET',
     );
   }
 
@@ -170,8 +170,8 @@ export class OptionsClient {
   async getCountries(): Promise<OptionsResponse<OptionList>> {
     return makeRequest<OptionsResponse<OptionList>>(
       this.apiKey,
-      "/options/list/countries",
-      "GET",
+      '/options/list/countries',
+      'GET',
     );
   }
 
@@ -190,8 +190,8 @@ export class OptionsClient {
   async getFloatingPositions(): Promise<OptionsResponse<OptionList>> {
     return makeRequest<OptionsResponse<OptionList>>(
       this.apiKey,
-      "/options/list/floating-mode-position",
-      "GET",
+      '/options/list/floating-mode-position',
+      'GET',
     );
   }
 
@@ -209,8 +209,8 @@ export class OptionsClient {
   async getFormFactors(): Promise<OptionsResponse<Symbols>> {
     return makeRequest<OptionsResponse<Symbols>>(
       this.apiKey,
-      "/options/list/form-factor",
-      "GET",
+      '/options/list/form-factor',
+      'GET',
     );
   }
 
@@ -228,8 +228,8 @@ export class OptionsClient {
   async getFrequencyCapDays(): Promise<OptionsResponse<OptionList>> {
     return makeRequest<OptionsResponse<OptionList>>(
       this.apiKey,
-      "/options/list/frequency-cap-days",
-      "GET",
+      '/options/list/frequency-cap-days',
+      'GET',
     );
   }
 
@@ -247,8 +247,8 @@ export class OptionsClient {
   async getFrequencyCapHours(): Promise<OptionsResponse<OptionList>> {
     return makeRequest<OptionsResponse<OptionList>>(
       this.apiKey,
-      "/options/list/frequency-cap-hours",
-      "GET",
+      '/options/list/frequency-cap-hours',
+      'GET',
     );
   }
 
@@ -266,8 +266,8 @@ export class OptionsClient {
   async getFrequencyCapMinutes(): Promise<OptionsResponse<OptionList>> {
     return makeRequest<OptionsResponse<OptionList>>(
       this.apiKey,
-      "/options/list/frequency-cap-minutes",
-      "GET",
+      '/options/list/frequency-cap-minutes',
+      'GET',
     );
   }
 
@@ -286,8 +286,8 @@ export class OptionsClient {
   async getDevices(): Promise<OptionsResponse<Symbols>> {
     return makeRequest<OptionsResponse<Symbols>>(
       this.apiKey,
-      "/options/list/device",
-      "GET",
+      '/options/list/device',
+      'GET',
     );
   }
 
@@ -305,8 +305,8 @@ export class OptionsClient {
   async getIncognitoModeValues(): Promise<OptionsResponse<Symbols>> {
     return makeRequest<OptionsResponse<Symbols>>(
       this.apiKey,
-      "/options/list/incognito",
-      "GET",
+      '/options/list/incognito',
+      'GET',
     );
   }
 
@@ -323,8 +323,8 @@ export class OptionsClient {
   async getISP(): Promise<OptionsResponse<unknown>> {
     return makeRequest<OptionsResponse<unknown>>(
       this.apiKey,
-      "/options/list/internet-service-providers",
-      "GET",
+      '/options/list/internet-service-providers',
+      'GET',
     );
   }
 
@@ -341,8 +341,8 @@ export class OptionsClient {
   async getLanguageModes(): Promise<OptionsResponse<OptionList>> {
     return makeRequest<OptionsResponse<OptionList>>(
       this.apiKey,
-      "/options/list/language-mode",
-      "GET",
+      '/options/list/language-mode',
+      'GET',
     );
   }
 
@@ -359,8 +359,8 @@ export class OptionsClient {
   async getLanguages(): Promise<OptionsResponse<OptionList>> {
     return makeRequest<OptionsResponse<OptionList>>(
       this.apiKey,
-      "/options/list/languages",
-      "GET",
+      '/options/list/languages',
+      'GET',
     );
   }
 
@@ -378,8 +378,8 @@ export class OptionsClient {
   async getOperatingSystems(): Promise<OptionsResponse<Symbols>> {
     return makeRequest<OptionsResponse<Symbols>>(
       this.apiKey,
-      "/options/list/languages",
-      "GET",
+      '/options/list/languages',
+      'GET',
     );
   }
 
@@ -397,8 +397,8 @@ export class OptionsClient {
   async getPopulations(): Promise<OptionsResponse<OptionList>> {
     return makeRequest<OptionsResponse<OptionList>>(
       this.apiKey,
-      "/options/list/populations",
-      "GET",
+      '/options/list/populations',
+      'GET',
     );
   }
 
@@ -415,8 +415,8 @@ export class OptionsClient {
   async getPrimeSpotValues(): Promise<OptionsResponse<OptionList>> {
     return makeRequest<OptionsResponse<OptionList>>(
       this.apiKey,
-      "/options/list/prime-spot",
-      "GET",
+      '/options/list/prime-spot',
+      'GET',
     );
   }
 
@@ -433,8 +433,8 @@ export class OptionsClient {
   async getQuality(): Promise<OptionsResponse<OptionList>> {
     return makeRequest<OptionsResponse<OptionList>>(
       this.apiKey,
-      "/options/list/quality",
-      "GET",
+      '/options/list/quality',
+      'GET',
     );
   }
 
@@ -451,8 +451,8 @@ export class OptionsClient {
   async getQualityMode(): Promise<OptionsResponse<OptionList>> {
     return makeRequest<OptionsResponse<OptionList>>(
       this.apiKey,
-      "/options/list/quality-mode",
-      "GET",
+      '/options/list/quality-mode',
+      'GET',
     );
   }
 
@@ -469,8 +469,8 @@ export class OptionsClient {
   async getRegionsByCountry(): Promise<OptionsResponse<OptionList>> {
     return makeRequest<OptionsResponse<OptionList>>(
       this.apiKey,
-      "/options/list/regions-by-countries",
-      "GET",
+      '/options/list/regions-by-countries',
+      'GET',
     );
   }
 
@@ -488,8 +488,8 @@ export class OptionsClient {
   async getResolutions(): Promise<OptionsResponse<OptionList>> {
     return makeRequest<OptionsResponse<OptionList>>(
       this.apiKey,
-      "/options/list/resolutions",
-      "GET",
+      '/options/list/resolutions',
+      'GET',
     );
   }
   /**
@@ -510,8 +510,8 @@ export class OptionsClient {
   async getTimeValues(): Promise<OptionsResponse<OptionList>> {
     return makeRequest<OptionsResponse<OptionList>>(
       this.apiKey,
-      "/options/list/time",
-      "GET",
+      '/options/list/time',
+      'GET',
     );
   }
 
@@ -532,8 +532,8 @@ export class OptionsClient {
   async getTimezones(): Promise<OptionsResponse<OptionList>> {
     return makeRequest<OptionsResponse<OptionList>>(
       this.apiKey,
-      "/options/list/timezones",
-      "GET",
+      '/options/list/timezones',
+      'GET',
     );
   }
 }

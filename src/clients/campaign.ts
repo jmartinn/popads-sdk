@@ -1,12 +1,12 @@
-import merge from "lodash.merge";
+import merge from 'lodash.merge';
 
-import { CAMPAIGN_DEFAULTS } from "../config/defaults";
+import { CAMPAIGN_DEFAULTS } from '../config/defaults';
 import {
-  CampaignResponse,
   CampaignCreateRequest,
+  CampaignResponse,
   CampaignUpdateRequest,
-} from "../types/campaign";
-import { makeRequest } from "../utils/request";
+} from '../types/campaign';
+import { makeRequest } from '../utils/request';
 
 /**
  * Client for managing advertising campaigns through the API.
@@ -38,7 +38,7 @@ export class CampaignClient {
     return makeRequest<CampaignResponse>(
       this.apiKey,
       `/campaign/details/${campaignId}`,
-      "GET",
+      'GET',
     );
   }
 
@@ -74,8 +74,8 @@ export class CampaignClient {
 
     return makeRequest<CampaignResponse>(
       this.apiKey,
-      "/campaign/add",
-      "POST",
+      '/campaign/add',
+      'POST',
       requestData,
     );
   }
@@ -115,7 +115,7 @@ export class CampaignClient {
     return makeRequest<CampaignResponse>(
       this.apiKey,
       `/campaign/update/${campaignId}`,
-      "PUT",
+      'PUT',
       data,
     );
   }

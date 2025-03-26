@@ -1,9 +1,9 @@
 import {
-  FeedResponse,
   FeedCreateRequest,
+  FeedResponse,
   FeedUpdateRequest,
-} from "../types/feed";
-import { makeRequest } from "../utils/request";
+} from '../types/feed';
+import { makeRequest } from '../utils/request';
 
 /**
  * Client for managing RTB feeds through the API.
@@ -56,7 +56,7 @@ export class FeedClient {
     return makeRequest<FeedResponse>(
       this.apiKey,
       `/feed/details/${feedId}`,
-      "GET",
+      'GET',
     );
   }
 
@@ -81,8 +81,8 @@ export class FeedClient {
   async createFeed(data: FeedCreateRequest): Promise<FeedResponse> {
     return makeRequest<FeedResponse>(
       this.apiKey,
-      "/campaign/add",
-      "POST",
+      '/campaign/add',
+      'POST',
       data,
     );
   }
@@ -117,7 +117,7 @@ export class FeedClient {
     return makeRequest<FeedResponse>(
       this.apiKey,
       `/feed/update/${feedId}`,
-      "PUT",
+      'PUT',
       data,
     );
   }

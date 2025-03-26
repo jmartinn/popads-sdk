@@ -3,7 +3,7 @@
  */
 export interface BaseApiResponse {
   /** Response status indicator */
-  status: "success" | "failed";
+  status: 'success' | 'failed';
 
   /** HTTP status code */
   code: number;
@@ -16,7 +16,7 @@ export interface BaseApiResponse {
  * Error response interface
  */
 export interface ErrorResponse extends BaseApiResponse {
-  status: "failed";
+  status: 'failed';
   code: 403 | 404 | 500;
   messages: {
     [key: string]: string[];

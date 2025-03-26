@@ -1,11 +1,11 @@
-import https from "https";
+import https from 'https';
 
-import { BaseApiResponse, ErrorResponse } from "../types/client";
+import { BaseApiResponse, ErrorResponse } from '../types/client';
 
-type HTTPMethod = "GET" | "POST" | "PUT" | "DELETE";
+type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 function isErrorResponse(response: BaseApiResponse): response is ErrorResponse {
-  return response.status === "failed";
+  return response.status === 'failed';
 }
 
 function makeRequest<T extends BaseApiResponse>(
@@ -17,20 +17,20 @@ function makeRequest<T extends BaseApiResponse>(
   return new Promise((resolve, reject) => {
     const data = body ? JSON.stringify(body) : null;
     const options = {
-      hostname: "www.popads.net",
+      hostname: 'www.popads.net',
       path: `/apiv2${endpoint}?key=${encodeURIComponent(apiKey)}`,
       method,
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
 
     const req = https.request(options, (res) => {
-      let responseData = "";
-      res.on("data", (chunk) => {
+      let responseData = '';
+      res.on('data', (chunk) => {
         responseData += chunk;
       });
-      res.on("end", () => {
+      res.on('end', () => {
         try {
           const parsedData: T | ErrorResponse = JSON.parse(responseData);
 
@@ -44,12 +44,12 @@ function makeRequest<T extends BaseApiResponse>(
           }
           resolve(parsedData);
         } catch (error) {
-          reject(new Error("Invalid JSON response"));
+          reject(new Error('Invalid JSON response'));
         }
       });
     });
 
-    req.on("error", (error) => reject(error));
+    req.on('error', (error) => reject(error));
     if (data) req.write(data);
     req.end();
   });

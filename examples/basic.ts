@@ -1,4 +1,4 @@
-import { Client } from "popads-sdk";
+import { Client } from 'popads-sdk';
 
 const client = new Client(process.env.POPADS_API_KEY as string);
 

@@ -1,7 +1,7 @@
-import { BaseApiResponse } from "./client";
+import { BaseApiResponse } from './client';
 
 export interface CampaignResponse extends BaseApiResponse {
-  status: "success";
+  status: 'success';
   code: 200;
   records: number;
   data: {
@@ -10,11 +10,11 @@ export interface CampaignResponse extends BaseApiResponse {
 }
 
 type CampaignStatus =
-  | "Approved"
-  | "Out of Budget"
-  | "Pending Approval"
-  | "Paused"
-  | "Rejected";
+  | 'Approved'
+  | 'Out of Budget'
+  | 'Pending Approval'
+  | 'Paused'
+  | 'Rejected';
 
 type Range<Start extends number, End extends number> =
   | Exclude<Enumerate<End>, Enumerate<Start>>
@@ -22,9 +22,9 @@ type Range<Start extends number, End extends number> =
 type Enumerate<
   N extends number,
   Acc extends number[] = [],
-> = Acc["length"] extends N
+> = Acc['length'] extends N
   ? Acc[number]
-  : Enumerate<N, [...Acc, Acc["length"]]>;
+  : Enumerate<N, [...Acc, Acc['length']]>;
 
 type Minutes = 0 | 5 | 10 | 15 | 20 | 25 | 30 | 35 | 40 | 45 | 50 | 55;
 type QualityLevel = Range<1, 10>;
@@ -79,8 +79,8 @@ export interface CampaignCreateRequest extends BaseCampaignRequest {
  * Campaign update request
  */
 export interface CampaignUpdateRequest extends Partial<BaseCampaignRequest> {
-  general_information?: Partial<Omit<CampaignGeneralInformation, "adult">>;
-  budget?: Partial<Omit<Budget, "budget">>;
+  general_information?: Partial<Omit<CampaignGeneralInformation, 'adult'>>;
+  budget?: Partial<Omit<Budget, 'budget'>>;
 }
 
 /**
@@ -106,7 +106,7 @@ interface CampaignGeneralInformation {
    * Quality mode: "minimum" or "exact".
    * @default "minimum"
    */
-  minimum_quality_mode?: "minimum" | "exact";
+  minimum_quality_mode?: 'minimum' | 'exact';
 
   /**
    * Defines how often the ad is shown.
@@ -130,7 +130,7 @@ interface CampaignGeneralInformation {
    * Placement preference for PrimeSpot ads.
    * @default "all"
    */
-  primespot?: "all" | "primespot" | "no_primespot";
+  primespot?: 'all' | 'primespot' | 'no_primespot';
 
   /**
    * Referrer tracking mode. (details in API documentation)
@@ -142,25 +142,25 @@ interface CampaignGeneralInformation {
    * Whether the ad targets users with ad blockers.
    * @default "all"
    */
-  ad_block?: "all" | "adblock" | "no_adblock";
+  ad_block?: 'all' | 'adblock' | 'no_adblock';
 
   /**
    * Whether the ad is shown in incognito mode.
    * @default "all"
    */
-  incognito?: "all" | "incognito" | "no_incognito";
+  incognito?: 'all' | 'incognito' | 'no_incognito';
 
   /**
    * Type of ad being run.
    * @default "popunder"
    */
   ad_type?:
-    | "popup"
-    | "popunder"
-    | "tabunder"
-    | "tabup"
-    | "bbr"
-    | "floatingbanner";
+    | 'popup'
+    | 'popunder'
+    | 'tabunder'
+    | 'tabup'
+    | 'bbr'
+    | 'floatingbanner';
 
   /**
    * Allow other methods when the chosen one is not available
@@ -188,7 +188,7 @@ interface FrequencyCap {
  */
 interface Budget {
   /** Budget allocation mode */
-  mode: "smart_bid" | "legacy_bid";
+  mode: 'smart_bid' | 'legacy_bid';
 
   /** Maximum bid per popunder (decimal string) */
   max_bid: number;
@@ -217,7 +217,7 @@ interface Throttling {
    * - `"manual"`: (Legacy) Manually reduce traffic speed by a percentage.
    * - `"auto"`: Set a maximum number of impressions or spending per time unit.
    */
-  type: "none" | "manual" | "auto";
+  type: 'none' | 'manual' | 'auto';
 
   /**
    * Specifies how the throttling threshold is measured.
@@ -225,7 +225,7 @@ interface Throttling {
    * - `"imps"`: Impressions per second.
    * - `"spent"`: Spending (USD) per second.
    */
-  mode: "imps" | "spent";
+  mode: 'imps' | 'spent';
 
   /**
    * Time unit for the throttling limit.
@@ -234,7 +234,7 @@ interface Throttling {
    * - `"m"`: Per minute.
    * - `"h"`: Per hour.
    */
-  unit: "s" | "m" | "h";
+  unit: 's' | 'm' | 'h';
 
   /**
    * The throttling value, defining the rate limit.
@@ -310,7 +310,7 @@ interface Society {
    * Retrieve valid values from [GET /language-modes](https://www.popads.net/docs/api_v2.html#tag/options/paths/~1options~1list~1language-mode/get).
    * @default "any"
    */
-  language_mode?: "any" | "first" | "exact";
+  language_mode?: 'any' | 'first' | 'exact';
 
   /**
    * List of language codes to target.
@@ -463,19 +463,19 @@ interface Time {
 type WebsiteTargeting =
   | {
       /** Target specific websites */
-      type: "include";
+      type: 'include';
       /** List of website IDs to specifically target */
       items_incl: number[];
     }
   | {
       /** Exclude specific websites */
-      type: "exclude";
+      type: 'exclude';
       /** List of website IDs to exclude from targeting */
       items_excl: number[];
     }
   | {
       /** Use a predefined targeting configuration */
-      type: "none";
+      type: 'none';
       /** ID of the predefined targeting configuration */
       id?: number;
     };

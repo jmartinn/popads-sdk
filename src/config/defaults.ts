@@ -1,24 +1,23 @@
-// eslint-disable-next-line
-import { PartialDeep } from "type-fest";
+import { PartialDeep } from 'type-fest';
 
-import { CampaignCreateRequest } from "../types/campaign";
+import { CampaignCreateRequest } from '../types/campaign';
 
 export const CAMPAIGN_DEFAULTS: PartialDeep<CampaignCreateRequest> = {
   general_information: {
     minimum_quality: 1,
-    minimum_quality_mode: "minimum",
+    minimum_quality_mode: 'minimum',
     frequency_cap: {
       days: 1,
       hours: 0,
       minutes: 0,
     },
     after_approval: 1,
-    primespot: "all",
+    primespot: 'all',
     adult: false,
     referrer: 0,
-    ad_block: "all",
-    incognito: "all",
-    ad_type: "popunder",
+    ad_block: 'all',
+    incognito: 'all',
+    ad_type: 'popunder',
     ad_type_other: true,
   },
   budget: {
@@ -32,7 +31,7 @@ export const CAMPAIGN_DEFAULTS: PartialDeep<CampaignCreateRequest> = {
     regions: [],
   },
   society: {
-    language_mode: "any",
+    language_mode: 'any',
     languages: [],
     populations: [],
   },
@@ -51,7 +50,7 @@ export const CAMPAIGN_DEFAULTS: PartialDeep<CampaignCreateRequest> = {
     internet_service_providers: [],
   },
   website_targeting: {
-    type: "none",
+    type: 'none',
   },
   adscore: {
     valid_traffic: 1,

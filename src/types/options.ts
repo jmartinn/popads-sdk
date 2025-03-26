@@ -1,4 +1,4 @@
-import { BaseApiResponse } from "./client";
+import { BaseApiResponse } from './client';
 
 export interface OptionsResponse<T> extends BaseApiResponse {
   data: T[];

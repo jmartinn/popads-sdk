@@ -1,7 +1,7 @@
-import { BaseApiResponse } from "./client";
+import { BaseApiResponse } from './client';
 
 export interface FeedResponse extends BaseApiResponse {
-  status: "success";
+  status: 'success';
   code: 200;
   records: number;
   data: {
@@ -10,11 +10,11 @@ export interface FeedResponse extends BaseApiResponse {
 }
 
 export type FeedStatus =
-  | "Approved"
-  | "Out of Budget"
-  | "Pending Approval"
-  | "Paused"
-  | "Rejected";
+  | 'Approved'
+  | 'Out of Budget'
+  | 'Pending Approval'
+  | 'Paused'
+  | 'Rejected';
 
 type Range<Start extends number, End extends number> =
   | Exclude<Enumerate<End>, Enumerate<Start>>
@@ -22,9 +22,9 @@ type Range<Start extends number, End extends number> =
 type Enumerate<
   N extends number,
   Acc extends number[] = [],
-> = Acc["length"] extends N
+> = Acc['length'] extends N
   ? Acc[number]
-  : Enumerate<N, [...Acc, Acc["length"]]>;
+  : Enumerate<N, [...Acc, Acc['length']]>;
 
 type QualityLevel = Range<1, 10>;
 type SpeedRange = Range<1, 100>;
@@ -95,28 +95,28 @@ interface FeedGeneralInformation {
   minimum_quality: QualityLevel;
 
   /** Quality mode: "minimum" or "exact". */
-  minimum_quality_mode: "minimum" | "exact";
+  minimum_quality_mode: 'minimum' | 'exact';
 
   /** Placement preference for PrimeSpot ads. */
-  primespot: "all" | "primespot" | "no_primespot";
+  primespot: 'all' | 'primespot' | 'no_primespot';
 
   /** Referrer tracking mode. (details in API documentation) */
   referrer: number;
 
   /** Whether the ad targets users with ad blockers. */
-  ad_block: "all" | "adblock" | "no_adblock";
+  ad_block: 'all' | 'adblock' | 'no_adblock';
 
   /** Whether the ad is shown in incognito mode. */
-  incognito: "all" | "incognito" | "no_incognito";
+  incognito: 'all' | 'incognito' | 'no_incognito';
 
   /** Type of ad being run. */
   ad_type:
-    | "popup"
-    | "popunder"
-    | "tabunder"
-    | "tabup"
-    | "bbr"
-    | "floatingbanner";
+    | 'popup'
+    | 'popunder'
+    | 'tabunder'
+    | 'tabup'
+    | 'bbr'
+    | 'floatingbanner';
 
   /** Bid modifier. E.g. `80` means `80%` of returned bid. */
   bid_modifier: Range<0, 100>;
@@ -143,7 +143,7 @@ interface Throttling {
    * - `"none"`: No throttling, impressions are delivered without limits.
    * - `"manual"`: (Legacy) Manually reduce traffic speed by a percentage.
    */
-  type: "none" | "manual";
+  type: 'none' | 'manual';
 
   /**
    * The campaign speed. A floating number (0.1-100).
@@ -203,7 +203,7 @@ interface Society {
    *
    * Retrieve valid values from [GET /language-modes](https://www.popads.net/docs/api_v2.html#tag/options/paths/~1options~1list~1language-mode/get).
    */
-  language_mode: "any" | "first" | "exact";
+  language_mode: 'any' | 'first' | 'exact';
 
   /**
    * List of language codes to target.
@@ -344,19 +344,19 @@ interface Time {
 type WebsiteTargeting =
   | {
       /** Target specific websites */
-      type: "include";
+      type: 'include';
       /** List of website IDs to specifically target */
       items_incl: number[];
     }
   | {
       /** Exclude specific websites */
-      type: "exclude";
+      type: 'exclude';
       /** List of website IDs to exclude from targeting */
       items_excl: number[];
     }
   | {
       /** Use a predefined targeting configuration */
-      type: "none";
+      type: 'none';
       /** ID of the predefined targeting configuration */
       id: number;
     };
