@@ -1,59 +1,59 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi } from 'vitest';
 
-import { Client } from "../src";
+import { Client } from '../src';
 import {
   CampaignCreateRequest,
   CampaignResponse,
   CampaignUpdateRequest,
-} from "../src/types/campaign";
+} from '../src/types/campaign';
 
-describe("CampaignClient", () => {
-  const mockApiKey = "test-api-key";
+describe('CampaignClient', () => {
+  const mockApiKey = 'test-api-key';
   const client = new Client(mockApiKey);
 
-  it("should have a campaign client", () => {
+  it('should have a campaign client', () => {
     expect(client.campaign).toBeDefined();
   });
 
-  it("should call getCampaign with the correct ID", async () => {
-    vi.spyOn(client.campaign, "getCampaign").mockResolvedValue({
-      status: "success",
+  it('should call getCampaign with the correct ID', async () => {
+    vi.spyOn(client.campaign, 'getCampaign').mockResolvedValue({
+      status: 'success',
       code: 200,
       records: 1,
       data: {
         campaign: {
           id: 123,
-          status: "Pending Approval",
+          status: 'Pending Approval',
           general_information: {
-            name: "Test Campaign",
-            urls: ["https://t.co/Ojz1243Fns"],
-            prefetch_url: "https://jmartinn.com/",
+            name: 'Test Campaign',
+            urls: ['https://t.co/Ojz1243Fns'],
+            prefetch_url: 'https://jmartinn.com/',
             minimum_quality: 1,
-            minimum_quality_mode: "minimum",
+            minimum_quality_mode: 'minimum',
             frequency_cap: {
               days: 1,
               hours: 0,
               minutes: 0,
             },
             after_approval: 1,
-            primespot: "all",
+            primespot: 'all',
             adult: false,
             referrer: 0,
-            ad_block: "all",
-            incognito: "all",
-            ad_type: "popunder",
+            ad_block: 'all',
+            incognito: 'all',
+            ad_type: 'popunder',
             ad_type_other: true,
           },
           budget: {
-            mode: "smart_bid",
+            mode: 'smart_bid',
             budget: 0,
             max_bid: 0.008,
             max_per_day: 0,
           },
           throttling: {
-            type: "auto",
-            mode: "imps",
-            unit: "m",
+            type: 'auto',
+            mode: 'imps',
+            unit: 'm',
             value: 120,
           },
           categories: {
@@ -61,11 +61,11 @@ describe("CampaignClient", () => {
             include_subcategories: true,
           },
           countries: {
-            codes: ["ES"],
+            codes: ['ES'],
             regions: [],
           },
           society: {
-            language_mode: "any",
+            language_mode: 'any',
             languages: [],
             populations: [],
           },
@@ -86,10 +86,10 @@ describe("CampaignClient", () => {
           },
           time: {
             time: [],
-            timezone: "Europe/Madrid",
+            timezone: 'Europe/Madrid',
           },
           website_targeting: {
-            type: "none",
+            type: 'none',
           },
           adscore: {
             valid_traffic: 1,
@@ -107,38 +107,38 @@ describe("CampaignClient", () => {
     expect(campaign.data.campaign.id).toBe(123);
   });
 
-  it("should call createCampaign and return the expected response", async () => {
+  it('should call createCampaign and return the expected response', async () => {
     const mockCampaignRequest: CampaignCreateRequest = {
       general_information: {
-        name: "Test Campaign",
-        urls: ["https://t.co/Ojz1243Fns"],
-        prefetch_url: "https://jmartinn.com/",
+        name: 'Test Campaign',
+        urls: ['https://t.co/Ojz1243Fns'],
+        prefetch_url: 'https://jmartinn.com/',
         minimum_quality: 1,
-        minimum_quality_mode: "minimum",
+        minimum_quality_mode: 'minimum',
         frequency_cap: {
           days: 1,
           hours: 0,
           minutes: 0,
         },
         after_approval: 1,
-        primespot: "all",
+        primespot: 'all',
         adult: false,
         referrer: 0,
-        ad_block: "all",
-        incognito: "all",
-        ad_type: "popunder",
+        ad_block: 'all',
+        incognito: 'all',
+        ad_type: 'popunder',
         ad_type_other: true,
       },
       budget: {
-        mode: "smart_bid",
+        mode: 'smart_bid',
         budget: 0,
         max_bid: 0.008,
         max_per_day: 0,
       },
       throttling: {
-        type: "auto",
-        mode: "imps",
-        unit: "m",
+        type: 'auto',
+        mode: 'imps',
+        unit: 'm',
         value: 120,
       },
       categories: {
@@ -146,11 +146,11 @@ describe("CampaignClient", () => {
         include_subcategories: true,
       },
       countries: {
-        codes: ["ES"],
+        codes: ['ES'],
         regions: [],
       },
       society: {
-        language_mode: "any",
+        language_mode: 'any',
         languages: [],
         populations: [],
       },
@@ -171,10 +171,10 @@ describe("CampaignClient", () => {
       },
       time: {
         time: [],
-        timezone: "Europe/Madrid",
+        timezone: 'Europe/Madrid',
       },
       website_targeting: {
-        type: "none",
+        type: 'none',
       },
       adscore: {
         valid_traffic: 1,
@@ -188,13 +188,13 @@ describe("CampaignClient", () => {
 
     // Mock API response
     const mockResponse: CampaignResponse = {
-      status: "success",
+      status: 'success',
       code: 200,
       records: 1,
       data: {
         campaign: {
           id: 123,
-          status: "Pending Approval",
+          status: 'Pending Approval',
           ...mockCampaignRequest,
         },
       },
@@ -202,7 +202,7 @@ describe("CampaignClient", () => {
 
     // Spy on the function and return the mock response
     const spy = vi
-      .spyOn(client.campaign, "createCampaign")
+      .spyOn(client.campaign, 'createCampaign')
       .mockResolvedValue(mockResponse);
 
     // Call the function
@@ -215,11 +215,11 @@ describe("CampaignClient", () => {
     expect(response).toEqual(mockResponse);
   });
 
-  it("should call updateCampaign and return the expected response", async () => {
+  it('should call updateCampaign and return the expected response', async () => {
     const campaignId = 123;
     const mockUpdateRequest: CampaignUpdateRequest = {
       general_information: {
-        name: "Updated Campaign Name",
+        name: 'Updated Campaign Name',
         minimum_quality: 2,
       },
       budget: {
@@ -228,43 +228,43 @@ describe("CampaignClient", () => {
     };
 
     const mockResponse: CampaignResponse = {
-      status: "success",
+      status: 'success',
       code: 200,
       records: 1,
       data: {
         campaign: {
           id: campaignId,
-          status: "Pending Approval",
+          status: 'Pending Approval',
           general_information: {
-            name: "Updated Campaign Name",
-            urls: ["https://t.co/Ojz1243Fns"],
-            prefetch_url: "https://jmartinn.com/",
+            name: 'Updated Campaign Name',
+            urls: ['https://t.co/Ojz1243Fns'],
+            prefetch_url: 'https://jmartinn.com/',
             minimum_quality: 2,
-            minimum_quality_mode: "minimum",
+            minimum_quality_mode: 'minimum',
             frequency_cap: {
               days: 1,
               hours: 0,
               minutes: 0,
             },
             after_approval: 1,
-            primespot: "all",
+            primespot: 'all',
             adult: false,
             referrer: 0,
-            ad_block: "all",
-            incognito: "all",
-            ad_type: "popunder",
+            ad_block: 'all',
+            incognito: 'all',
+            ad_type: 'popunder',
             ad_type_other: true,
           },
           budget: {
-            mode: "smart_bid",
+            mode: 'smart_bid',
             budget: 0,
             max_bid: 0.01,
             max_per_day: 0,
           },
           throttling: {
-            type: "auto",
-            mode: "imps",
-            unit: "m",
+            type: 'auto',
+            mode: 'imps',
+            unit: 'm',
             value: 120,
           },
           categories: {
@@ -272,11 +272,11 @@ describe("CampaignClient", () => {
             include_subcategories: true,
           },
           countries: {
-            codes: ["ES"],
+            codes: ['ES'],
             regions: [],
           },
           society: {
-            language_mode: "any",
+            language_mode: 'any',
             languages: [],
             populations: [],
           },
@@ -297,10 +297,10 @@ describe("CampaignClient", () => {
           },
           time: {
             time: [],
-            timezone: "Europe/Madrid",
+            timezone: 'Europe/Madrid',
           },
           website_targeting: {
-            type: "none",
+            type: 'none',
           },
           adscore: {
             valid_traffic: 1,
@@ -315,7 +315,7 @@ describe("CampaignClient", () => {
     };
 
     const spy = vi
-      .spyOn(client.campaign, "updateCampaign")
+      .spyOn(client.campaign, 'updateCampaign')
       .mockResolvedValue(mockResponse);
 
     const response = await client.campaign.updateCampaign(

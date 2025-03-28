@@ -10,7 +10,7 @@ export default tseslint.config(
   tseslint.configs.recommended,
   {
     files: ['**/*.ts'],
-    ignores: ['**/dist/', 'vitest.config.ts', '**/examples/*'],
+    ignores: ['**/dist/', 'vitest.config.ts', '**/examples/*', '**/tests/*'],
     extends: [
       importPlugin.flatConfigs.recommended,
       importPlugin.flatConfigs.typescript,
