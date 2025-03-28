@@ -1,10 +1,7 @@
 import { BaseApiResponse } from './client';
 
 export interface CampaignResponse extends BaseApiResponse {
-  status: 'success';
-  code: 200;
-  records: number;
-  data: {
+  data?: {
     campaign: Partial<Campaign>;
   };
 }

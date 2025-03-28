@@ -9,10 +9,10 @@ type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
  */
 class SDKError extends Error {
   constructor(
-    public message: string,
-    public cause?: unknown,
+    public status: number,
+    public messages: Record<string, any>,
   ) {
-    super(message);
+    super(`API request failed with status ${status}`);
     this.name = 'SDKError';
   }
 }
@@ -48,20 +48,25 @@ function makeRequest<T extends BaseApiResponse>(
           const parsedData: T | ErrorResponse = JSON.parse(responseData);
 
           if (isErrorResponse(parsedData)) {
-            reject(parsedData);
+            // reject(parsedData);
+            reject(new SDKError(parsedData.code, parsedData.messages));
             return;
           }
           resolve(parsedData);
         } catch (error) {
-          reject(new SDKError('Invalid JSON response', error));
+          reject(
+            new SDKError(500, { error: `Invalid JSON response\n ${error}` }),
+          );
         }
       });
     });
 
-    req.on('error', (error) => reject(error));
+    req.on('error', (error) =>
+      reject(new SDKError(500, { error: error.message })),
+    );
     if (data) req.write(data);
     req.end();
   });
 }
 
-export { makeRequest };
+export { makeRequest, SDKError };
