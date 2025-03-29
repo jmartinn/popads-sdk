@@ -1,6 +1,5 @@
-export * from './types/campaign';
-export * from './types/client';
-export * from './types/feed';
-export * from './types/options';
+// Export all types through the types index
+export * from './types';
 
+// Export client
 export { PopAdsClient as Client } from './clients/popads';

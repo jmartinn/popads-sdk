@@ -1,37 +1,38 @@
 import { BaseApiResponse } from './client';
 
 export interface CampaignResponse extends BaseApiResponse {
+  messages?: string[];
   data?: {
     campaign: Partial<Campaign>;
   };
 }
 
-type CampaignStatus =
+export type CampaignStatus =
   | 'Approved'
   | 'Out of Budget'
   | 'Pending Approval'
   | 'Paused'
   | 'Rejected';
 
-type Range<Start extends number, End extends number> =
+export type Range<Start extends number, End extends number> =
   | Exclude<Enumerate<End>, Enumerate<Start>>
   | End;
-type Enumerate<
+export type Enumerate<
   N extends number,
   Acc extends number[] = [],
 > = Acc['length'] extends N
   ? Acc[number]
   : Enumerate<N, [...Acc, Acc['length']]>;
 
-type Minutes = 0 | 5 | 10 | 15 | 20 | 25 | 30 | 35 | 40 | 45 | 50 | 55;
-type QualityLevel = Range<1, 10>;
-type DaysRange = Range<0, 31>;
-type HoursRange = Range<0, 23>;
+export type Minutes = 0 | 5 | 10 | 15 | 20 | 25 | 30 | 35 | 40 | 45 | 50 | 55;
+export type QualityLevel = Range<1, 10>;
+export type DaysRange = Range<0, 31>;
+export type HoursRange = Range<0, 23>;
 
 /**
  * Main campaign interface combining all components
  */
-interface Campaign {
+export interface Campaign {
   id: number;
   status: CampaignStatus;
   general_information: CampaignGeneralInformation;
@@ -51,7 +52,7 @@ interface Campaign {
 /**
  * Common fields between create and update requests
  */
-interface BaseCampaignRequest {
+export interface BaseCampaignRequest {
   throttling: Throttling;
   categories?: Categories;
   countries: Countries;
@@ -83,7 +84,7 @@ export interface CampaignUpdateRequest extends Partial<BaseCampaignRequest> {
 /**
  * Represents the general information of a campaign
  */
-interface CampaignGeneralInformation {
+export interface CampaignGeneralInformation {
   /** The name of the campaign (1-100 characters). */
   name: string;
 
@@ -169,7 +170,7 @@ interface CampaignGeneralInformation {
 /**
  * Frequency cap configuration
  */
-interface FrequencyCap {
+export interface FrequencyCap {
   /** Number of days (0-31) */
   days: DaysRange;
 
@@ -183,7 +184,7 @@ interface FrequencyCap {
 /**
  * Budget configuration for campaign spending
  */
-interface Budget {
+export interface Budget {
   /** Budget allocation mode */
   mode: 'smart_bid' | 'legacy_bid';
 
@@ -206,7 +207,7 @@ interface Budget {
 /**
  * Traffic throttling configuration.
  */
-interface Throttling {
+export interface Throttling {
   /**
    * The throttling mode.
    *
@@ -252,7 +253,7 @@ interface Throttling {
 /**
  * Category targeting settings
  */
-interface Categories {
+export interface Categories {
   /**
    * List of categories to retrieve.
    *
@@ -272,7 +273,7 @@ interface Categories {
 /**
  * Geographic targeting configuration
  */
-interface Countries {
+export interface Countries {
   /**
    * List of country codes to target.
    *
@@ -296,7 +297,7 @@ interface Countries {
 /**
  * Demographic and language targeting settings.
  */
-interface Society {
+export interface Society {
   /**
    * Specifies how the system should match user languages.
    *
@@ -331,7 +332,7 @@ interface Society {
 /**
  * Technical environment targeting.
  */
-interface Environment {
+export interface Environment {
   /**
    * List of operating system IDs to target.
    *
@@ -363,7 +364,7 @@ interface Environment {
 /**
  * Device targeting configuration.
  */
-interface Device {
+export interface Device {
   /**
    * List of device IDs to target.
    *
@@ -396,7 +397,7 @@ interface Device {
 /**
  * Network connection targeting.
  */
-interface Connection {
+export interface Connection {
   /**
    * Choose a predefined IP Targeting List.
    *
@@ -437,7 +438,7 @@ interface Connection {
 /**
  * Time targeting settings.
  */
-interface Time {
+export interface Time {
   /**
    * List of time slot IDs for ad delivery.
    *
@@ -457,7 +458,7 @@ interface Time {
  * Website targeting configuration.
  * @default { type: "none" } (no specific targeting)
  */
-type WebsiteTargeting =
+export type WebsiteTargeting =
   | {
       /** Target specific websites */
       type: 'include';
@@ -480,7 +481,7 @@ type WebsiteTargeting =
 /**
  * Traffic quality and compliance settings.
  */
-interface AdScore {
+export interface AdScore {
   /**
    * Whether to allow only verified valid traffic.
    *

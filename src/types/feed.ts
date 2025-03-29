@@ -16,23 +16,23 @@ export type FeedStatus =
   | 'Paused'
   | 'Rejected';
 
-type Range<Start extends number, End extends number> =
+export type Range<Start extends number, End extends number> =
   | Exclude<Enumerate<End>, Enumerate<Start>>
   | End;
-type Enumerate<
+export type Enumerate<
   N extends number,
   Acc extends number[] = [],
 > = Acc['length'] extends N
   ? Acc[number]
   : Enumerate<N, [...Acc, Acc['length']]>;
 
-type QualityLevel = Range<1, 10>;
-type SpeedRange = Range<1, 100>;
+export type QualityLevel = Range<1, 10>;
+export type SpeedRange = Range<1, 100>;
 
 /**
  * Main feed interface combining all components
  */
-interface Feed {
+export interface Feed {
   id: number;
   status: FeedStatus;
   general_information: FeedGeneralInformation;
@@ -52,7 +52,7 @@ interface Feed {
 /**
  * Common fields between create and update requests
  */
-interface BaseFeedRequest {
+export interface BaseFeedRequest {
   throttling: Throttling;
   categories: Categories;
   countries: Countries;
@@ -84,7 +84,7 @@ export interface FeedUpdateRequest extends Partial<BaseFeedRequest> {
 /**
  * Represents the general information of a campaign
  */
-interface FeedGeneralInformation {
+export interface FeedGeneralInformation {
   /** The name of the campaign (1-100 characters). */
   name: string;
 
@@ -125,7 +125,7 @@ interface FeedGeneralInformation {
   ad_type_other: boolean;
 }
 
-interface OpenRTB {
+export interface OpenRTB {
   root_ext?: JSON;
   imp_ext?: JSON;
   site_ext?: JSON;
@@ -136,7 +136,7 @@ interface OpenRTB {
 /**
  * Traffic throttling configuration.
  */
-interface Throttling {
+export interface Throttling {
   /**
    * The throttling mode.
    *
@@ -154,7 +154,7 @@ interface Throttling {
 /**
  * Category targeting settings
  */
-interface Categories {
+export interface Categories {
   /**
    * List of categories to retrieve.
    *
@@ -170,7 +170,7 @@ interface Categories {
 /**
  * Geographic targeting configuration
  */
-interface Countries {
+export interface Countries {
   /**
    * List of country codes to target.
    *
@@ -193,7 +193,7 @@ interface Countries {
 /**
  * Demographic and language targeting settings.
  */
-interface Society {
+export interface Society {
   /**
    * Specifies how the system should match user languages.
    *
@@ -225,7 +225,7 @@ interface Society {
 /**
  * Technical environment targeting.
  */
-interface Environment {
+export interface Environment {
   /**
    * List of operating system IDs to target.
    *
@@ -254,7 +254,7 @@ interface Environment {
 /**
  * Device targeting configuration.
  */
-interface Device {
+export interface Device {
   /**
    * List of device IDs to target.
    *
@@ -285,7 +285,7 @@ interface Device {
 /**
  * Network connection targeting.
  */
-interface Connection {
+export interface Connection {
   /**
    * Choose a predefined IP Targeting List.
    *
@@ -322,7 +322,7 @@ interface Connection {
 /**
  * Time targeting settings.
  */
-interface Time {
+export interface Time {
   /**
    * List of time slot IDs for ad delivery.
    *
@@ -341,7 +341,7 @@ interface Time {
 /**
  * Website targeting configuration.
  */
-type WebsiteTargeting =
+export type WebsiteTargeting =
   | {
       /** Target specific websites */
       type: 'include';
@@ -364,7 +364,7 @@ type WebsiteTargeting =
 /**
  * Traffic quality and compliance settings.
  */
-interface AdScore {
+export interface AdScore {
   /**
    * Whether to allow only verified valid traffic.
    *
