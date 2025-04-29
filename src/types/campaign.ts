@@ -92,7 +92,7 @@ export interface CampaignGeneralInformation {
   urls: string[];
 
   /** Optional: Prefetch URL if different from campaign URL. */
-  prefetch_url: string;
+  prefetch_url?: string;
 
   /**
    * Quality level of the websites to advertise on (1-10).
