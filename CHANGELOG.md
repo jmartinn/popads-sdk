@@ -2,6 +2,12 @@
 
 All notable changes to the PopAds SDK will be documented in this file.
 
+## [1.4.0] - 2024-05-27
+
+### Added
+- Added support for PATCH HTTP method for partial campaign updates
+- Added `patchCampaign` method to the CampaignClient class for more granular campaign updates
+
 ## [1.3.0] - 2024-03-29
 
 ### Added

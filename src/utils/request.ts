@@ -2,7 +2,7 @@ import https from 'https';
 
 import { BaseApiResponse, ErrorResponse } from '../types/client';
 
-type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
+type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
 /**
  * Custom error class for unexpected SDK errors

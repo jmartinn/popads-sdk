@@ -7,6 +7,7 @@ A minimal and efficient TypeScript SDK for interacting with the PopAds API v2. T
 - ⚙️ Retrieve available options (countries, categories, etc.).
 - 🔒 Built with TypeScript for type safety.
 - 📦 Zero dependencies, lightweight, and efficient.
+- 🔄 Support for both PUT and PATCH campaign updates.
 
 ---
 
