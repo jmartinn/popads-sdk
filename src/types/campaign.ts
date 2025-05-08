@@ -385,13 +385,14 @@ export interface Device {
   /**
    * Whether to allow "Request as Desktop" traffic.
    *
-   * - `0` = Disabled
-   * - `1` = Enabled
+   * - `0` = Disabled (Block)
+   * - `1` = Enabled (Target)
+   * - Leave empty (' ') to allow all traffic even if it pretends to be a desktop
    *
    * Mobile browsers can request pages in desktop mode. This setting detects those cases.
    * @default 1 (allow desktop requests)
    */
-  request_as_desktop?: 0 | 1;
+  request_as_desktop: 0 | 1 | '';
 }
 
 /**

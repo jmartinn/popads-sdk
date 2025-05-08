@@ -1,6 +1,12 @@
 // Example of using the types from popads-sdk
 
-import { Client, BaseApiResponse, OptionList, CampaignTypes, FeedTypes } from '../src';
+import {
+  Client,
+  BaseApiResponse,
+  OptionList,
+  CampaignTypes,
+  FeedTypes,
+} from '../src';
 
 // Using BaseApiResponse type
 const handleResponse = (response: BaseApiResponse) => {
@@ -27,10 +33,10 @@ const createFeed = (data: FeedTypes.FeedCreateRequest) => {
 
 // Example of using option types
 const processCategories = (categories: OptionList[]) => {
-  categories.forEach(category => {
+  categories.forEach((category) => {
     console.log(`Category ID: ${category.id}, Label: ${category.label}`);
   });
 };
 
 // This is how you would use campaign-specific enums and types
-type QualityLevel = CampaignTypes.QualityLevel; // Range from 1-10 
+type QualityLevel = CampaignTypes.QualityLevel; // Range from 1-10

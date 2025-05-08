@@ -2,6 +2,14 @@
 
 All notable changes to the PopAds SDK will be documented in this file.
 
+## [1.4.1] - 2024-05-30
+
+### Fixed
+- Fixed default configuration for `request_as_desktop` to properly handle all traffic modes
+- Updated campaign type definition for `request_as_desktop` to include empty string option
+- Added default time slots configuration for better out-of-the-box experience
+- Updated examples to use the latest SDK version
+
 ## [1.4.0] - 2024-05-27
 
 ### Added
