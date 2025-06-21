@@ -1,12 +1,22 @@
 import { BaseApiResponse } from './client';
 
+/**
+ * API response for campaign operations (create, update, retrieve).
+ */
 export interface CampaignResponse extends BaseApiResponse {
+  /** Optional status or error messages from the API */
   messages?: string[];
+
+  /** Campaign data wrapper */
   data?: {
+    /** The campaign object (may be partial depending on the operation) */
     campaign: Partial<Campaign>;
   };
 }
 
+/**
+ * Possible campaign status values returned by the API.
+ */
 export type CampaignStatus =
   | 'Approved'
   | 'Out of Budget'
@@ -14,9 +24,18 @@ export type CampaignStatus =
   | 'Paused'
   | 'Rejected';
 
+/**
+ * Utility type for creating numeric ranges.
+ * @internal
+ */
 export type Range<Start extends number, End extends number> =
   | Exclude<Enumerate<End>, Enumerate<Start>>
   | End;
+
+/**
+ * Utility type for enumerating numbers up to N.
+ * @internal
+ */
 export type Enumerate<
   N extends number,
   Acc extends number[] = [],
@@ -24,28 +43,70 @@ export type Enumerate<
   ? Acc[number]
   : Enumerate<N, [...Acc, Acc['length']]>;
 
+/**
+ * Valid minute values for frequency cap settings (0, 5, 10, 15, ..., 55).
+ */
 export type Minutes = 0 | 5 | 10 | 15 | 20 | 25 | 30 | 35 | 40 | 45 | 50 | 55;
+
+/**
+ * Quality levels for website targeting (1-10, where 10 is highest quality).
+ */
 export type QualityLevel = Range<1, 10>;
+
+/**
+ * Valid day values for frequency cap settings (0-31).
+ */
 export type DaysRange = Range<0, 31>;
+
+/**
+ * Valid hour values for frequency cap settings (0-23).
+ */
 export type HoursRange = Range<0, 23>;
 
 /**
  * Main campaign interface combining all components
  */
 export interface Campaign {
+  /** Unique campaign identifier */
   id: number;
+
+  /** Current campaign status */
   status: CampaignStatus;
+
+  /** Basic campaign information and settings */
   general_information: CampaignGeneralInformation;
+
+  /** Budget and bidding configuration */
   budget: Budget;
+
+  /** Traffic throttling settings */
   throttling: Throttling;
+
+  /** Content category targeting */
   categories: Categories;
+
+  /** Geographic targeting configuration */
   countries: Countries;
+
+  /** Language and population targeting */
   society: Society;
+
+  /** Browser and OS targeting */
   environment: Environment;
+
+  /** Device and form factor targeting */
   device: Device;
+
+  /** Connection type and ISP targeting */
   connections: Connection;
+
+  /** Time-based targeting configuration */
   time: Time;
+
+  /** Website-specific targeting rules */
   website_targeting: WebsiteTargeting;
+
+  /** Traffic quality and fraud prevention settings */
   adscore: AdScore;
 }
 
@@ -53,36 +114,62 @@ export interface Campaign {
  * Common fields between create and update requests
  */
 export interface BaseCampaignRequest {
-  throttling: Throttling;
-  categories?: Categories;
-  countries: Countries;
-  society?: Society;
-  environment?: Environment;
-  device: Device;
-  connections?: Connection;
-  time: Time;
+  /** Traffic throttling settings */
+  throttling?: Partial<Throttling>;
+
+  /** Content category targeting */
+  categories?: Partial<Categories>;
+
+  /** Geographic targeting configuration */
+  countries?: Partial<Countries>;
+
+  /** Language and population targeting */
+  society?: Partial<Society>;
+
+  /** Browser and OS targeting */
+  environment?: Partial<Environment>;
+
+  /** Device and form factor targeting */
+  device?: Partial<Device>;
+
+  /** Connection type and ISP targeting */
+  connections?: Partial<Connection>;
+
+  /** Time-based targeting configuration */
+  time?: Partial<Time>;
+
+  /** Website-specific targeting rules */
   website_targeting?: WebsiteTargeting;
-  adscore?: AdScore;
+
+  /** Traffic quality and fraud prevention settings */
+  adscore?: Partial<AdScore>;
 }
 
 /**
- * Campaign creation request
+ * Campaign creation request - developer-friendly interface
+ * Only truly essential fields are required, everything else has intelligent defaults
  */
 export interface CampaignCreateRequest extends BaseCampaignRequest {
-  general_information: CampaignGeneralInformation;
-  budget: Budget;
+  /** Basic campaign information (name, URLs, etc.) */
+  general_information: CampaignGeneralInformationInput;
+
+  /** Budget and bidding configuration */
+  budget: BudgetInput;
 }
 
 /**
  * Campaign update request
  */
 export interface CampaignUpdateRequest extends Partial<BaseCampaignRequest> {
+  /** Basic campaign information (adult flag cannot be changed) */
   general_information?: Partial<Omit<CampaignGeneralInformation, 'adult'>>;
+
+  /** Budget configuration (total budget cannot be changed) */
   budget?: Partial<Omit<Budget, 'budget'>>;
 }
 
 /**
- * Represents the general information of a campaign
+ * Represents the general information of a campaign (for responses and full campaign objects)
  */
 export interface CampaignGeneralInformation {
   /** The name of the campaign (1-100 characters). */
@@ -110,31 +197,34 @@ export interface CampaignGeneralInformation {
    * Defines how often the ad is shown.
    * @default { days: 1, hours: 0, minutes: 0 } (once per day)
    */
-  frequency_cap?: FrequencyCap;
+  frequency_cap: FrequencyCap;
 
   /**
    * Action after approval: 1 = Start immediately, 3 = Manual start
    * @default 1
    */
-  after_approval?: 1 | 3;
+  after_approval: 1 | 3;
 
   /**
    * Whether the campaign is marked as adult content.
    * @default false
    */
-  adult?: boolean;
+  adult: boolean;
 
   /**
    * Placement preference for PrimeSpot ads.
    * @default "all"
    */
-  primespot?: 'all' | 'primespot' | 'no_primespot';
+  primespot: 'all' | 'primespot' | 'no_primespot';
 
   /**
    * Referrer tracking mode. (details in API documentation)
+   * 0 = Standard
+   * 1 = Blank
+   * 2 = Random
    * @default 0
    */
-  referrer?: number;
+  referrer: 0 | 1 | 2;
 
   /**
    * Whether the ad targets users with ad blockers.
@@ -146,13 +236,13 @@ export interface CampaignGeneralInformation {
    * Whether the ad is shown in incognito mode.
    * @default "all"
    */
-  incognito?: 'all' | 'incognito' | 'no_incognito';
+  incognito: 'all' | 'incognito' | 'regular';
 
   /**
    * Type of ad being run.
    * @default "popunder"
    */
-  ad_type?:
+  ad_type:
     | 'popup'
     | 'popunder'
     | 'tabunder'
@@ -164,7 +254,7 @@ export interface CampaignGeneralInformation {
    * Allow other methods when the chosen one is not available
    * @default true
    */
-  ad_type_other?: boolean;
+  ad_type_other: boolean;
 }
 
 /**
@@ -189,10 +279,27 @@ export interface Budget {
   mode: 'smart_bid' | 'legacy_bid';
 
   /** Maximum bid per popunder (decimal string) */
+
+  /**
+   * Maximum bid per popunder (decimal string)
+   * Has to be equal or greater than 0.0005
+   */
   max_bid: number;
 
-  /** Daily budget limit (0 = unlimited) */
-  max_per_day?: number;
+  /**
+   * Daily budget limit (0 = unlimited)
+   * Has to be equal or greater than 2.5
+   */
+  max_per_day: number;
+
+  /**
+   * Daily traffic shaping
+   * Only aplicable when daily budget is set
+   *
+   * - `"adaptive"`: Adaptive traffic shaping distributes remaining daily budget over the remaining hours of activity.
+   * - `"hourly"`: Hourly traffic shaping distributes total daily budget across the number of active hours of activity.
+   */
+  daily_traffic_shaping: 'adaptive' | 'hourly';
 
   /** Total campaign budget */
   budget: number;
@@ -210,8 +317,9 @@ export interface Budget {
 export interface Throttling {
   /**
    * The throttling mode.
+   * @default "auto"
    *
-   * - `"none"`: No throttling, impressions are delivered without limits.
+   * - `"none"`: No throttling, impressions are delivered without speed limits.
    * - `"manual"`: (Legacy) Manually reduce traffic speed by a percentage.
    * - `"auto"`: Set a maximum number of impressions or spending per time unit.
    */
@@ -261,13 +369,13 @@ export interface Categories {
    * - Leave empty to retrieve all categories.
    * @default [] (all categories)
    */
-  list?: number[];
+  list: number[];
 
   /**
    * Include subcategories in targeting
    * @default true
    */
-  include_subcategories?: boolean;
+  include_subcategories: boolean;
 }
 
 /**
@@ -291,7 +399,7 @@ export interface Countries {
    * - Leave empty to target all regions.
    * @default [] (all regions)
    */
-  regions?: string[];
+  regions: string[];
 }
 
 /**
@@ -308,7 +416,7 @@ export interface Society {
    * Retrieve valid values from [GET /language-modes](https://www.popads.net/docs/api_v2.html#tag/options/paths/~1options~1list~1language-mode/get).
    * @default "any"
    */
-  language_mode?: 'any' | 'first' | 'exact';
+  language_mode: 'any' | 'first' | 'exact';
 
   /**
    * List of language codes to target.
@@ -317,7 +425,7 @@ export interface Society {
    * - Leave empty to target *all available* languages.
    * @default [] (all languages)
    */
-  languages?: string[];
+  languages: string[];
 
   /**
    * List of population segment IDs to target.
@@ -326,7 +434,7 @@ export interface Society {
    * - Leave empty to target *all* population groups.
    * @default [] (all population groups)
    */
-  populations?: number[];
+  populations: number[];
 }
 
 /**
@@ -340,7 +448,7 @@ export interface Environment {
    * - Leave empty to target *all* operating systems.
    * @default [] (all operating systems)
    */
-  os?: number[];
+  os: number[];
 
   /**
    * List of browser IDs to target.
@@ -349,7 +457,7 @@ export interface Environment {
    * - Leave empty to target *all* browsers.
    * @default [] (all browsers)
    */
-  browser?: number[];
+  browser: number[];
 
   /**
    * List of screen resolution IDs to target.
@@ -358,7 +466,7 @@ export interface Environment {
    * - Leave empty to target *all* screen resolutions.
    * @default [] (all screen resolutions)
    */
-  resolutions?: number[];
+  resolutions: number[];
 }
 
 /**
@@ -372,7 +480,7 @@ export interface Device {
    * - Leave empty to target *all* devices.
    * @default [] (all devices)
    */
-  device?: number[];
+  device: number[];
 
   /**
    * List of form factor IDs to target (e.g., mobile, tablet, desktop).
@@ -387,12 +495,12 @@ export interface Device {
    *
    * - `0` = Disabled (Block)
    * - `1` = Enabled (Target)
-   * - Leave empty (' ') to allow all traffic even if it pretends to be a desktop
+   * - Leave empty ('') to allow all traffic even if it pretends to be a desktop
    *
    * Mobile browsers can request pages in desktop mode. This setting detects those cases.
-   * @default 1 (allow desktop requests)
+   * @default undefined (allow all traffic)
    */
-  request_as_desktop: 0 | 1 | '';
+  request_as_desktop?: 0 | 1 | '';
 }
 
 /**
@@ -414,7 +522,7 @@ export interface Connection {
    * - Leave empty to target *all* connection types.
    * @default [] (all connection types)
    */
-  conntype?: number[];
+  conntype: number[];
 
   /**
    * List of connection speed IDs to target.
@@ -423,7 +531,7 @@ export interface Connection {
    * - Leave empty to target *all* connection speeds.
    * @default [] (all connection speeds)
    */
-  connspeed?: number[];
+  connspeed: number[];
 
   /**
    * List of ISP (Internet Service Provider) IDs to target.
@@ -433,7 +541,7 @@ export interface Connection {
    * - **Note:** ISP targeting requires selecting *up to three* countries in the `countries` object.
    * @default [] (all ISPs)
    */
-  internet_service_providers?: number[];
+  internet_service_providers: number[];
 }
 
 /**
@@ -490,7 +598,7 @@ export interface AdScore {
    * - `1` = Enabled
    * @default 1 (verified traffic only)
    */
-  valid_traffic?: 0 | 1;
+  valid_traffic: 0 | 1;
 
   /**
    * Whether to allow proxy or VPN traffic.
@@ -499,7 +607,7 @@ export interface AdScore {
    * - `1` = Enabled
    * @default 0 (exclude proxies)
    */
-  proxy_traffic?: 0 | 1;
+  proxy_traffic: 0 | 1;
 
   /**
    * Whether to filter based on true geographic location.
@@ -517,7 +625,7 @@ export interface AdScore {
    * - `1` = Enabled
    * @default 0 (exclude junk)
    */
-  junk_traffic?: 0 | 1;
+  junk_traffic: 0 | 1;
 
   /**
    * Whether to block bot traffic.
@@ -539,4 +647,133 @@ export interface AdScore {
    * - Always set to `1` (enabled).
    */
   compliance: 1;
+}
+
+/**
+ * General information for campaign creation - only essential fields required
+ */
+export interface CampaignGeneralInformationInput {
+  /** The name of the campaign (1-100 characters). */
+  name: string;
+
+  /** List of landing page URLs (1-300 items, must be valid URLs). */
+  urls: string[];
+
+  /** Optional: Prefetch URL if different from campaign URL. */
+  prefetch_url?: string;
+
+  /**
+   * Quality level of the websites to advertise on (1-10).
+   * @default 1
+   */
+  minimum_quality?: QualityLevel;
+
+  /**
+   * Quality mode: "minimum" or "exact".
+   * @default "minimum"
+   */
+  minimum_quality_mode?: 'minimum' | 'exact';
+
+  /**
+   * Defines how often the ad is shown.
+   * @default { days: 1, hours: 0, minutes: 0 } (once per day)
+   */
+  frequency_cap?: Partial<FrequencyCap>;
+
+  /**
+   * Action after approval: 1 = Start immediately, 3 = Manual start
+   * @default 1
+   */
+  after_approval?: 1 | 3;
+
+  /**
+   * Whether the campaign is marked as adult content.
+   * @default false
+   */
+  adult?: boolean;
+
+  /**
+   * Placement preference for PrimeSpot ads.
+   * @default "all"
+   */
+  primespot?: 'all' | 'primespot' | 'no_primespot';
+
+  /**
+   * Referrer tracking mode. (details in API documentation)
+   * 0 = Standard
+   * 1 = Blank
+   * 2 = Random
+   * @default 0
+   */
+  referrer?: 0 | 1 | 2;
+
+  /**
+   * Whether the ad targets users with ad blockers.
+   * @default "all"
+   */
+  ad_block?: 'all' | 'adblock' | 'no_adblock';
+
+  /**
+   * Whether the ad is shown in incognito mode.
+   * @default "all"
+   */
+  incognito?: 'all' | 'incognito' | 'regular';
+
+  /**
+   * Type of ad being run.
+   * @default "popunder"
+   */
+  ad_type?:
+    | 'popup'
+    | 'popunder'
+    | 'tabunder'
+    | 'tabup'
+    | 'bbr'
+    | 'floatingbanner';
+
+  /**
+   * Allow other methods when the chosen one is not available
+   * @default true
+   */
+  ad_type_other?: boolean;
+}
+
+/**
+ * Budget configuration for campaign creation - only essential fields required
+ */
+export interface BudgetInput {
+  /**
+   * Budget allocation mode
+   * @default "smart_bid"
+   */
+  mode?: 'smart_bid' | 'legacy_bid';
+
+  /**
+   * Maximum bid per popunder (decimal string)
+   * Has to be equal or greater than 0.0005
+   */
+  max_bid: number;
+
+  /**
+   * Daily budget limit (0 = unlimited)
+   * Has to be equal or greater than 2.5
+   * @default 0
+   */
+  max_per_day?: number;
+
+  /**
+   * Daily traffic shaping
+   * Only aplicable when daily budget is set
+   * @default "adaptive"
+   */
+  daily_traffic_shaping?: 'adaptive' | 'hourly';
+
+  /** Total campaign budget */
+  budget: number;
+
+  /**
+   * Enable use of account balance instead of local budgets
+   * @default false
+   */
+  global_budget?: boolean;
 }

@@ -6,6 +6,7 @@ import {
   CampaignResponse,
   CampaignUpdateRequest,
 } from '../types/campaign';
+import { ClientOptions } from '../types/client';
 import { makeRequest } from '../utils/request';
 
 /**
@@ -16,15 +17,18 @@ import { makeRequest } from '../utils/request';
  */
 export class CampaignClient {
   private apiKey: string;
+  private options: ClientOptions;
 
   /**
    * Creates a new instance of the CampaignClient.
    *
    * @param apiKey - The API key used for authentication with the campaign management API.
    *                 This key should have appropriate permissions for campaign operations.
+   * @param options - Optional client configuration for logging, debugging, etc.
    */
-  constructor(apiKey: string) {
+  constructor(apiKey: string, options: ClientOptions = {}) {
     this.apiKey = apiKey;
+    this.options = options;
   }
 
   /**
@@ -39,33 +43,50 @@ export class CampaignClient {
       this.apiKey,
       `/campaign/details/${campaignId}`,
       'GET',
+      undefined,
+      this.options,
     );
   }
 
   /**
    * Creates a new advertising campaign with the specified configuration.
    *
-   * @param data - The complete campaign configuration, including all required fields
-   *               such as general information, budget settings, and targeting options.
+   * @param data - The campaign configuration. Only name, urls, max_bid, and budget are required.
+   *               All other fields have sensible defaults that will be applied automatically.
    * @returns A promise that resolves to the newly created campaign's details.
    * @throws Will throw an error if the campaign creation fails or if required fields are missing.
    *
    * @example
    * ```typescript
+   * // Minimal required configuration
    * const newCampaign = await client.campaign.createCampaign({
    *   general_information: {
    *     name: "Summer Promotion 2025",
-   *     urls: ["https://example.com/promo"],
+   *     urls: ["https://example.com/promo"]
+   *   },
+   *   budget: {
+   *     max_bid: 0.5,
+   *     budget: 1000
+   *   }
+   * });
+   *
+   * // With additional configuration
+   * const advancedCampaign = await client.campaign.createCampaign({
+   *   general_information: {
+   *     name: "Advanced Campaign",
+   *     urls: ["https://example.com/advanced"],
    *     minimum_quality: 8,
-   *     // ... other required fields
+   *     adult: false
    *   },
    *   budget: {
    *     mode: "smart_bid",
-   *     max_bid: "0.5",
-   *     budget: 1000,
-   *     // ... other budget settings
+   *     max_bid: 0.75,
+   *     budget: 5000,
+   *     max_per_day: 100
    *   },
-   *   // ... other campaign configuration
+   *   countries: {
+   *     codes: ["US", "CA", "GB"]
+   *   }
    * });
    * ```
    */
@@ -77,6 +98,7 @@ export class CampaignClient {
       '/campaign/add',
       'POST',
       requestData,
+      this.options,
     );
   }
 
@@ -117,6 +139,7 @@ export class CampaignClient {
       `/campaign/update/${campaignId}`,
       'PUT',
       data,
+      this.options,
     );
   }
 
@@ -154,6 +177,7 @@ export class CampaignClient {
       `/campaign/update/${campaignId}`,
       'PATCH',
       data,
+      this.options,
     );
   }
 }
