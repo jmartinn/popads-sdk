@@ -4,14 +4,16 @@
     "target": "es2020",
     "strict": true,
     "declaration": true,
+    "declarationMap": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "types": ["node"],
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
+    "moduleResolution": "node",
     "outDir": "./dist"
   },
-  "include": ["src/**/*.ts", "test/**/*.ts"],
-  "exclude": ["node_modules", "dist", "examples/*"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist", "examples", "tests", "**/*.test.ts", "**/*.spec.ts"]
 }

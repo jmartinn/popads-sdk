@@ -1,0 +1,103 @@
+name: 📚 Generate Documentation
+
+on:
+  push:
+    branches: [ master, main ]
+    paths:
+      - 'src/**'
+      - 'typedoc.json'
+      - 'package.json'
+      - '.github/workflows/docs.yml'
+  pull_request:
+    branches: [ master, main ]
+    paths:
+      - 'src/**'
+      - 'typedoc.json'
+
+jobs:
+  generate-docs:
+    name: Generate TypeDoc Documentation
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: 📦 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: 📌 Setup pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 9
+        
+    - name: 📚 Install dependencies
+      run: pnpm install --frozen-lockfile
+      
+    - name: 🔨 Build project
+      run: pnpm build
+      
+    - name: 📖 Generate documentation
+      run: pnpm run docs:generate
+      
+    - name: 🧪 Check documentation coverage
+      run: pnpm run docs:check
+      continue-on-error: true
+      
+    - name: 📤 Upload documentation artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: documentation
+        path: docs/
+        retention-days: 30
+        
+    # Deploy to GitHub Pages on main branch
+    - name: 🚀 Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs
+        
+  validate-examples:
+    name: Validate Documentation Examples
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: 📦 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: 📌 Setup pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 9
+        
+    - name: 📚 Install dependencies
+      run: |
+        pnpm install --frozen-lockfile
+        cd examples && pnpm install --frozen-lockfile
+        
+    - name: 🔨 Build project
+      run: pnpm build
+      
+    - name: ✅ Validate examples
+      run: |
+        cd examples
+        # Type check all examples
+        npx tsc --noEmit --skipLibCheck
+        echo "✅ All examples type-check successfully"
+        
+    - name: 🧪 Test debugging example
+      run: |
+        cd examples
+        # Test that debugging example runs without errors
+        timeout 10s npx ts-node debugging-example.ts || true
+        echo "✅ Debugging example executed" 

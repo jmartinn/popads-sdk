@@ -43,7 +43,12 @@
     "check": "pnpm run format:check && pnpm run lint",
     "prepublishOnly": "pnpm test",
     "test": "vitest run",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "docs:generate": "typedoc",
+    "docs:serve": "pnpm run docs:generate && npx http-server docs -p 3001 -o",
+    "docs:markdown": "typedoc --plugin typedoc-plugin-markdown --out docs-md",
+    "docs:check": "typedoc --validation.notDocumented --emit none",
+    "predocs:generate": "rimraf docs docs-md"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
@@ -56,10 +61,13 @@
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.2.3",
     "globals": "^15.15.0",
+    "http-server": "^14.1.1",
     "prettier": "^3.5.1",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "type-fest": "^4.35.0",
+    "typedoc": "^0.28.5",
+    "typedoc-plugin-markdown": "^4.7.0",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.24.1",
     "vitest": "^3.0.6"

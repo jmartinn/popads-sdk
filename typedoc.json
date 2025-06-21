@@ -1,0 +1,32 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "name": "PopAds SDK",
+  "entryPoints": ["src/index.ts"],
+  "out": "docs",
+  "tsconfig": "./tsconfig.json",
+  "exclude": [
+    "**/*+(test|spec).ts",
+    "**/node_modules/**",
+    "**/examples/**"
+  ],
+  "theme": "default",
+  "readme": "README.md",
+  "includeVersion": true,
+  "excludePrivate": true,
+  "excludeProtected": false,
+  "excludeInternal": false,
+  "categorizeByGroup": true,
+  "sort": ["source-order"],
+  "validation": {
+    "notExported": true,
+    "invalidLink": true,
+    "notDocumented": false
+  },
+  "gitRevision": "master",
+  "gitRemote": "origin",
+  "sourceLinkTemplate": "https://github.com/jmartinn/popads-sdk/blob/{gitRevision}/{path}#L{line}",
+  "navigationLinks": {
+    "GitHub": "https://github.com/jmartinn/popads-sdk",
+    "NPM": "https://www.npmjs.com/package/popads-sdk"
+  }
+} 
