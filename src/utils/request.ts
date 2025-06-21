@@ -110,7 +110,7 @@ function makeRequest<T extends BaseApiResponse>(
       method,
       headers: {
         'Content-Type': 'application/json',
-        'User-Agent': 'PopAds-SDK/1.4.1',
+        'User-Agent': 'PopAds-SDK/1.5.0',
       },
       timeout: options?.timeout || 30000,
     };

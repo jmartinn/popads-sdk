@@ -89,7 +89,7 @@ export class PopAdsClient {
     // Log client initialization in debug mode
     if (this.clientOptions.debug) {
       this.logger.info('PopAds SDK client initialized', {
-        version: '1.4.1',
+        version: '1.5.0',
         options: {
           ...this.clientOptions,
           // Don't log the actual logger instance
