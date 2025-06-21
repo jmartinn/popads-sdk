@@ -1,14 +1,23 @@
 import { BaseApiResponse } from './client';
 
+/**
+ * API response for feed operations (create, update, retrieve).
+ */
 export interface FeedResponse extends BaseApiResponse {
   status: 'success';
   code: 200;
   records: number;
+
+  /** Feed data wrapper */
   data: {
+    /** The complete feed object */
     feed: Feed;
   };
 }
 
+/**
+ * Possible feed status values returned by the API.
+ */
 export type FeedStatus =
   | 'Approved'
   | 'Out of Budget'
@@ -16,9 +25,18 @@ export type FeedStatus =
   | 'Paused'
   | 'Rejected';
 
+/**
+ * Utility type for creating numeric ranges.
+ * @internal
+ */
 export type Range<Start extends number, End extends number> =
   | Exclude<Enumerate<End>, Enumerate<Start>>
   | End;
+
+/**
+ * Utility type for enumerating numbers up to N.
+ * @internal
+ */
 export type Enumerate<
   N extends number,
   Acc extends number[] = [],
@@ -26,26 +44,60 @@ export type Enumerate<
   ? Acc[number]
   : Enumerate<N, [...Acc, Acc['length']]>;
 
+/**
+ * Quality levels for website targeting (1-10, where 10 is highest quality).
+ */
 export type QualityLevel = Range<1, 10>;
+
+/**
+ * Traffic speed percentage range for throttling (1-100%).
+ */
 export type SpeedRange = Range<1, 100>;
 
 /**
  * Main feed interface combining all components
  */
 export interface Feed {
+  /** Unique feed identifier */
   id: number;
+
+  /** Current feed status */
   status: FeedStatus;
+
+  /** Basic feed information and settings */
   general_information: FeedGeneralInformation;
+
+  /** OpenRTB configuration for programmatic advertising */
   open_rtb?: OpenRTB;
+
+  /** Traffic throttling settings */
   throttling: Throttling;
+
+  /** Content category targeting */
   categories: Categories;
+
+  /** Geographic targeting configuration */
   countries: Countries;
+
+  /** Language and population targeting */
   society: Society;
+
+  /** Browser and OS targeting */
   environment: Environment;
+
+  /** Device and form factor targeting */
   device: Device;
+
+  /** Connection type and ISP targeting */
   connections: Connection;
+
+  /** Time-based targeting configuration */
   time: Time;
+
+  /** Website-specific targeting rules */
   website_targeting: WebsiteTargeting;
+
+  /** Traffic quality and fraud prevention settings */
   adscore: AdScore;
 }
 
@@ -53,15 +105,34 @@ export interface Feed {
  * Common fields between create and update requests
  */
 export interface BaseFeedRequest {
+  /** Traffic throttling settings */
   throttling: Throttling;
+
+  /** Content category targeting */
   categories: Categories;
+
+  /** Geographic targeting configuration */
   countries: Countries;
+
+  /** Language and population targeting */
   society: Society;
+
+  /** Browser and OS targeting */
   environment: Environment;
+
+  /** Device and form factor targeting */
   device: Device;
+
+  /** Connection type and ISP targeting */
   connections: Connection;
+
+  /** Time-based targeting configuration */
   time: Time;
+
+  /** Website-specific targeting rules */
   website_targeting: WebsiteTargeting;
+
+  /** Traffic quality and fraud prevention settings */
   adscore: AdScore;
 }
 
@@ -69,7 +140,10 @@ export interface BaseFeedRequest {
  * Feed creation request
  */
 export interface FeedCreateRequest extends BaseFeedRequest {
+  /** Basic feed information and settings */
   general_information: FeedGeneralInformation;
+
+  /** OpenRTB configuration for programmatic advertising */
   open_rtb: OpenRTB;
 }
 
@@ -77,7 +151,10 @@ export interface FeedCreateRequest extends BaseFeedRequest {
  * Feed update request
  */
 export interface FeedUpdateRequest extends Partial<BaseFeedRequest> {
+  /** Basic feed information and settings */
   general_information?: Partial<FeedGeneralInformation>;
+
+  /** OpenRTB configuration for programmatic advertising */
   open_rtb?: Partial<OpenRTB>;
 }
 
@@ -125,11 +202,26 @@ export interface FeedGeneralInformation {
   ad_type_other: boolean;
 }
 
+/**
+ * OpenRTB (Real-Time Bidding) configuration for programmatic advertising.
+ *
+ * These settings allow customization of OpenRTB bid requests and responses
+ * by adding extensions to different parts of the RTB protocol.
+ */
 export interface OpenRTB {
+  /** Extensions to add to the root level of OpenRTB requests */
   root_ext?: JSON;
+
+  /** Extensions to add to impression objects in OpenRTB requests */
   imp_ext?: JSON;
+
+  /** Extensions to add to site objects in OpenRTB requests */
   site_ext?: JSON;
+
+  /** Extensions to add to device objects in OpenRTB requests */
   device_ext?: JSON;
+
+  /** Extensions to add to user objects in OpenRTB requests */
   user_ext?: JSON;
 }
 

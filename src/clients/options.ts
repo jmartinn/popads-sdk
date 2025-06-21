@@ -1,3 +1,4 @@
+import { ClientOptions } from '../types/client';
 import {
   Category,
   OptionList,
@@ -19,15 +20,18 @@ import { makeRequest } from '../utils/request';
  */
 export class OptionsClient {
   private apiKey: string;
+  private options: ClientOptions;
 
   /**
-   * Creates a new instance of the CampaignClient.
+   * Creates a new instance of the OptionsClient.
    *
-   * @param apiKey - The API key used for authentication with the campaign management API.
-   *                 This key should have appropriate permissions for campaign operations.
+   * @param apiKey - The API key used for authentication with the options API.
+   *                 This key should have appropriate permissions for options operations.
+   * @param options - Optional client configuration for logging, debugging, etc.
    */
-  constructor(apiKey: string) {
+  constructor(apiKey: string, options: ClientOptions = {}) {
     this.apiKey = apiKey;
+    this.options = options;
   }
 
   /**
@@ -45,6 +49,8 @@ export class OptionsClient {
       this.apiKey,
       '/options/list/ad-block',
       'GET',
+      undefined,
+      this.options,
     );
   }
 
@@ -59,6 +65,8 @@ export class OptionsClient {
       this.apiKey,
       '/options/list/adv-type',
       'GET',
+      undefined,
+      this.options,
     );
   }
 

@@ -1,3 +1,4 @@
+import { ClientOptions } from '../types/client';
 import {
   FeedCreateRequest,
   FeedResponse,
@@ -28,15 +29,18 @@ import { makeRequest } from '../utils/request';
  */
 export class FeedClient {
   private apiKey: string;
+  private options: ClientOptions;
 
   /**
    * Creates a new instance of the FeedClient.
    *
    * @param apiKey - The API key used for authentication with the feed management API.
    *                 This key should have appropriate permissions for feed operations.
+   * @param options - Optional client configuration for logging, debugging, etc.
    */
-  constructor(apiKey: string) {
+  constructor(apiKey: string, options: ClientOptions = {}) {
     this.apiKey = apiKey;
+    this.options = options;
   }
 
   /**
@@ -57,6 +61,8 @@ export class FeedClient {
       this.apiKey,
       `/feed/details/${feedId}`,
       'GET',
+      undefined,
+      this.options,
     );
   }
 
@@ -84,6 +90,7 @@ export class FeedClient {
       '/campaign/add',
       'POST',
       data,
+      this.options,
     );
   }
 
@@ -119,6 +126,7 @@ export class FeedClient {
       `/feed/update/${feedId}`,
       'PUT',
       data,
+      this.options,
     );
   }
 }
