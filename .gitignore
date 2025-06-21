@@ -21,6 +21,9 @@ coverage
 
 # API keys and secrets
 .env
+.env.local
+.env.*.local
+examples/.env
 
 # Dependency directory
 node_modules
@@ -35,8 +38,12 @@ bower_components
 Thumbs.db
 
 # Ignore built ts files
-dist/**/*
-build/**/*
+dist/
+build/
+
+# Generated documentation (will be deployed via GitHub Actions)
+docs/
+docs-md/
 
 # ignore yarn.lock
 yarn.lock

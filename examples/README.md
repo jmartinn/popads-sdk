@@ -1,27 +1,35 @@
-# PopAds API TypeScript SDK Examples
+# PopAds SDK Examples
 
-## To run the examples
+This directory contains practical examples demonstrating how to use the PopAds TypeScript SDK.
 
-Make sure you are in the `examples` directory
+## 🚀 Quick Start
 
-Install the required packages
-
+1. Copy `.env.example` to `.env` and add your PopAds API key:
+```bash
+cp .env.example .env
+# Edit .env and add your API key
 ```
+
+2. Install dependencies:
+```bash
 pnpm install
 ```
 
-Next, create a `.env` file in the example directory and populate the following variables:
-
+3. Run an example:
+```bash
+npx ts-node basic.ts
 ```
-POPADS_API_KEY="your_api_key"
-```
 
-Run the example with `ts-node`
+## 📁 Available Examples
 
-`pnpm ts-node *.ts`
+- `basic.ts` - Basic campaign creation and retrieval
+- `using-types.ts` - Advanced usage with TypeScript types
+- `debugging-example.ts` - Error handling and debugging
+- `patch-example.ts` - Campaign updates using PATCH
 
-For example:
+## Environment Variables
 
-```
-pnpm ts-node oauth2-bearer.ts
-```
+The examples use environment variables for configuration. Copy `.env.example` to `.env` and configure:
+
+- `POPADS_API_KEY` - Your PopAds API key (required)
+- `CAMPAIGN_ID` - Optional campaign ID for testing specific campaigns

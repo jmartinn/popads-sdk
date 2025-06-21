@@ -2,10 +2,14 @@
   "name": "popads-sdk-examples",
   "version": "1.0.0",
   "description": "Examples for the PopAds API TypeScript SDK",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/basic.js"
+  },
   "dependencies": {
     "dotenv": "^16.0.1",
     "express": "^4.17.1",
-    "popads-sdk": "1.4.1"
+    "popads-sdk": "latest"
   },
   "devDependencies": {
     "@types/express": "^4.17.11",
